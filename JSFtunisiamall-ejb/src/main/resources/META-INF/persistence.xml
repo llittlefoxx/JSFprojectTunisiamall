@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JSFtunisiamall-ejb">
+		<jta-data-source>java:/tunisiamallDS</jta-data-source>
+		<class>edu.tunisiamall.entities.Administrator</class>
+		<class>edu.tunisiamall.entities.AnonimousRating</class>
+		<class>edu.tunisiamall.entities.Category</class>
+		<class>edu.tunisiamall.entities.Comment</class>
+		<class>edu.tunisiamall.entities.Complaint</class>
+		<class>edu.tunisiamall.entities.Customer</class>
+		<class>edu.tunisiamall.entities.Event</class>
+		<class>edu.tunisiamall.entities.Friendship</class>
+		<class>edu.tunisiamall.entities.Gestbookentry</class>
+		<class>edu.tunisiamall.entities.Image</class>
+		<class>edu.tunisiamall.entities.Message</class>
+		<class>edu.tunisiamall.entities.Mvtstock</class>
+		<class>edu.tunisiamall.entities.Order</class>
+		<class>edu.tunisiamall.entities.OrderLine</class>
+		<class>edu.tunisiamall.entities.Post</class>
+		<class>edu.tunisiamall.entities.Product</class>
+		<class>edu.tunisiamall.entities.Promotion</class>
+		<class>edu.tunisiamall.entities.PromotionSuggest</class>
+		<class>edu.tunisiamall.entities.ShopRequest</class>
+		<class>edu.tunisiamall.entities.Shopowner</class>
+		<class>edu.tunisiamall.entities.Store</class>
+		<class>edu.tunisiamall.entities.Storeevent</class>
+		<class>edu.tunisiamall.entities.StoreeventPK</class>
+		<class>edu.tunisiamall.entities.Subcategory</class>
+		<class>edu.tunisiamall.entities.Subscription</class>
+		<class>edu.tunisiamall.entities.SubscriptionPK</class>
+		<class>edu.tunisiamall.entities.User</class>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+		</properties>
+	</persistence-unit>
+</persistence>
