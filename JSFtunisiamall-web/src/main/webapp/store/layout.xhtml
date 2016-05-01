@@ -30,7 +30,10 @@
 				</section>
 			</ui:repeat>
 		</div>
-		<button onclick="getLayout()">Save</button>
+		<h:form>
+			<input id="layoutInput" name="layout" type="hidden" value=""/>
+			<h:commandButton action="#{storeBean.editLayout()}" value="Save" onclick="getLayout()" />
+		</h:form>
 	</ui:define>
 	<ui:define name="scripts">
 		<script>
@@ -64,15 +67,16 @@
 			for (var i = 0; i &lt; elements.length; i++) {
 				layout = layout + elements[i].getAttribute('layoutType');
 			}
-			for(var i=0;i &lt; check.length;i++){
-				if(check[i].checked == true){
+			for (var i = 0; i &lt; elements.length; i++) {
+				if(elements[i].querySelector('input').checked == true){
 					layout = layout + '1';
 				}
 				else{
 					layout = layout + '0';
 				}
 			}
-			alert(layout);
+			document.getElementById('layoutInput').value = layout;
+			//alert(layout);
 		}
 		</script>
 	</ui:define>

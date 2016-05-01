@@ -105,6 +105,12 @@ public class StoreBean {
 		this.layoutList = list;
 	}
 
+	public void editLayout() {
+		String layout = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("layout");
+		store.setLayout(layout);
+		storeEJB.updateStoreDetails(store);
+	}
+
 	public List<Store> getStoresList() {
 		return storesList;
 	}
