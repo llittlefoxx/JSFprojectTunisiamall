@@ -12,7 +12,7 @@ public class Store implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idStroe;
+	private int idStore;
 
 	private String description;
 
@@ -27,6 +27,12 @@ public class Store implements Serializable {
 	private String status;
 
 	private String tel;
+
+	private String layout;
+
+	private String imageURI;
+
+	private String videoURI;
 
 	public Store(String description, Category category, String name, Date openingDay, String status, String tel,
 			Shopowner shopowner) {
@@ -47,12 +53,12 @@ public class Store implements Serializable {
 	public Store() {
 	}
 
-	public int getIdStroe() {
-		return this.idStroe;
+	public int getIdStore() {
+		return this.idStore;
 	}
 
-	public void setIdStroe(int idStroe) {
-		this.idStroe = idStroe;
+	public void setIdStore(int idStroe) {
+		this.idStore = idStroe;
 	}
 
 	public Category getCategory() {
@@ -109,6 +115,30 @@ public class Store implements Serializable {
 
 	public void setShopowner(Shopowner shopowner) {
 		this.shopowner = shopowner;
+	}
+
+	public String getLayout() {
+		return layout;
+	}
+
+	public void setLayout(String layout) {
+		this.layout = layout;
+	}
+
+	public String getImageURI() {
+		return imageURI;
+	}
+
+	public void setImageURI(String imageURI) {
+		this.imageURI = imageURI;
+	}
+
+	public String getVideoURI() {
+		return videoURI;
+	}
+
+	public void setVideoURI(String videoURI) {
+		this.videoURI = videoURI;
 	}
 
 }

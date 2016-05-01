@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/templates/BasicTemplate.xhtml">
+	<ui:define name="header">
+		<f:metadata>
+			<f:event listener="#{storeBean.getCurrentStoresList()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+	<ui:define name="title">Stores List</ui:define>
+	<ui:define name="content">
+		<h:outputText value="#{storeBean.count}" />
+		<h:form>
+			<ui:repeat value="#{storeBean.storesList}" var="item">
+				<h:outputText value="#{item.name}" />
+				<h:outputText value="#{item.status}" />
+				<h:link value="edit" outcome="edit">
+					<f:param name="id" value="#{item.idStore}" />
+				</h:link>
+				<h:commandLink action="#{storeBean.close(item.idStore)}"
+					onclick="return confirm('Do you really want to close this store ?')"
+					value="close" rendered="#{item.status eq 'Open'}" />
+				<h:commandLink action="#{storeBean.reopen(item.idStore)}"
+					value="open" rendered="#{item.status eq 'Closed'}" />
+				<br />
+			</ui:repeat>
+		</h:form>
+	</ui:define>
+	<ui:define name="scripts"></ui:define>
+</ui:composition>
+</html>
