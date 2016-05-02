@@ -22,5 +22,9 @@ public interface StoreServicesLocal {
 	public Mvtstock addMvtStock(Mvtstock stock);
 	public List<Mvtstock> getAllMvtStock();
 	public Mvtstock findMvtstockById(int id);
+	// JSF Sprint
+	public void closeStore(int idStore);
+	public void reopenStore(int idStore);
+	public void updateStoreDetails(Store s);
 
 }
