@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/templates/BasicTemplate.xhtml">
+	<ui:define name="header"></ui:define>
+	<ui:define name="title">Edit Store</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Name" />
+				<h:inputText value="#{storeBean.store.name}"/>
+				<h:outputLabel value="Description" />
+				<h:inputTextarea value="#{storeBean.store.description}" />
+				<h:outputLabel value="Tel" />
+				<h:inputText value="#{storeBean.store.tel}" />
+				<h:outputText value="#{storeBean.store.category.libelle}" />
+				<f:facet name="footer">
+					<h:panelGroup style="display:block; text-align:center">
+						<h:commandButton action="#{storeBean.updateStore()}" value="Submit" />
+					</h:panelGroup>
+				</f:facet>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	<ui:define name="scripts"></ui:define>
+</ui:composition>
+</html>

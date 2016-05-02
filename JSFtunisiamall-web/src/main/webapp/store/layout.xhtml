@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/templates/BasicTemplate.xhtml">
+	<ui:define name="header">
+		<f:metadata>
+			<f:viewParam name="id" value="#{storeBean.idStore}"></f:viewParam>
+			<f:event listener="#{storeBean.initLayout()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+	<ui:define name="title">Store Layout</ui:define>
+	<ui:define name="content">
+		<div id="sortable">
+			<ui:repeat var="item" value="#{storeBean.layoutList}">
+				<section class="panel" layoutType="#{item[0]}">
+				<div class="panel-heading head-border">
+					<h2 class="panel-title pull-left">
+						<i class="fa fa-arrows-v fa-2x"></i> #{item[1]}
+					</h2>
+					<div class="pull-right">
+						<input id="check#{item[0]}" type="checkbox"
+							data-value="#{item[2]}" class="js-switch-small-green" />
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-body w-setting"></div>
+				</section>
+			</ui:repeat>
+		</div>
+		<h:form>
+			<input id="layoutInput" name="layout" type="hidden" value=""/>
+			<h:commandButton action="#{storeBean.editLayout()}" value="Save" onclick="getLayout()" />
+		</h:form>
+	</ui:define>
+	<ui:define name="scripts">
+		<script>
+		var xx = document.getElementById('sortable');
+		var sortable = Sortable.create(xx, {handle: '.fa', animation: 150});
+		var check = [];
+		check[0] = document.getElementById('check0');
+		check[1] = document.getElementById('check1');
+		check[2] = document.getElementById('check2');
+		check[3] = document.getElementById('check3');
+		check[4] = document.getElementById('check4');
+		check[5] = document.getElementById('check5');
+		check[6] = document.getElementById('check6');
+		check[7] = document.getElementById('check7');
+		check[8] = document.getElementById('check8');
+		for(var i=0;i &lt; check.length;i++){
+			var active = check[i].getAttribute('data-value');
+			if(active == '1')
+			{
+				check[i].checked = true;
+			}
+			else
+			{
+				check[i].checked = false;
+			}
+			var switchery = new Switchery(check[i], { size: 'small', color: '#79d4a7', secondaryColor: '#e8e8e8' });
+		}
+		function getLayout(){
+			var layout = "";
+			var elements = document.getElementById('sortable').getElementsByClassName('panel');
+			for (var i = 0; i &lt; elements.length; i++) {
+				layout = layout + elements[i].getAttribute('layoutType');
+			}
+			for (var i = 0; i &lt; elements.length; i++) {
+				if(elements[i].querySelector('input').checked == true){
+					layout = layout + '1';
+				}
+				else{
+					layout = layout + '0';
+				}
+			}
+			document.getElementById('layoutInput').value = layout;
+			//alert(layout);
+		}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>
