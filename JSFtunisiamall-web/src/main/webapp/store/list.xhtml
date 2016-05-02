@@ -5,22 +5,15 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/templates/BasicTemplate.xhtml">
-	<ui:define name="header">
-		<f:metadata>
-			<f:event listener="#{storeBean.getCurrentStoresList()}"
-				type="preRenderView"></f:event>
-		</f:metadata>
-	</ui:define>
+	<ui:define name="header"></ui:define>
 	<ui:define name="title">Stores List</ui:define>
 	<ui:define name="content">
-		<h:outputText value="#{storeBean.count}" />
+		<h:outputText value="#{storeBean.count}" styleClass="bg-info" />
 		<h:form>
 			<ui:repeat value="#{storeBean.storesList}" var="item">
-				<h:outputText value="#{item.name}" />
-				<h:outputText value="#{item.status}" />
-				<h:link value="edit" outcome="edit">
-					<f:param name="id" value="#{item.idStore}" />
-				</h:link>
+				<h:outputLabel value="#{item.name}" styleClass="bg-info" />
+				<h:outputText value="#{item.status}" styleClass="bg-info"/>
+				<h:commandButton action="#{storeBean.editStore(item.idStore)}" value="Edit" />
 				<h:commandLink action="#{storeBean.close(item.idStore)}"
 					onclick="return confirm('Do you really want to close this store ?')"
 					value="close" rendered="#{item.status eq 'Open'}" />

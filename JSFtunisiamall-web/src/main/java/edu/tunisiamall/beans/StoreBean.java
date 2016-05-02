@@ -1,17 +1,13 @@
 package edu.tunisiamall.beans;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import edu.tunisiamall.entities.Store;
 import edu.tunisiamall.storeServices.StoreServicesLocal;
 
@@ -22,7 +18,6 @@ public class StoreBean {
 	private List<Store> storesList;
 	private int count;
 	private Store store;
-	private int idStore;
 	private List<String[]> layoutList;
 	@EJB
 	StoreServicesLocal storeEJB;
@@ -38,44 +33,29 @@ public class StoreBean {
 
 	public void reopen(int idstore) {
 		storeEJB.reopenStore(idstore);
-		for (Store store : storesList) {
-			if (store.getIdStore() == idstore) {
-				store.setStatus("Open");
-				break;
-			}
-		}
+		storesList = storeEJB.findStoreByShopOwner(idShopOwner);
 	}
 
 	public void close(int idstore) {
 		storeEJB.closeStore(idstore);
-		for (Store store : storesList) {
-			if (store.getIdStore() == idstore) {
-				store.setStatus("Closed");
-				break;
-			}
-		}
+		storesList = storeEJB.findStoreByShopOwner(idShopOwner);
 	}
 
-	public void getCurrentStore() {
-		this.store = storeEJB.findStoreById(this.idStore);
+	public String editStore(int idStore) {
+		String redirectTo = "edit?faces-redirect=true";
+		store = storeEJB.findStoreById(idStore);
+		return redirectTo;
 	}
-
-	public void getCurrentStoresList() {
-		this.storesList = storeEJB.findStoreByShopOwner(idShopOwner);
-		count = storesList.size();
-	}
-
-	public void editStore() {
+	
+	public String updateStore(){
+		String redirectTo = "list?faces-redirect=true";
 		storeEJB.updateStoreDetails(store);
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("list.jsf");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		storesList = storeEJB.findStoreByShopOwner(idShopOwner);
+		return redirectTo;
 	}
 
-	public void initLayout() {
-		this.store = storeEJB.findStoreById(this.idStore);
+	public List<String[]> initLayout(int idStore) {
+		this.store = storeEJB.findStoreById(idStore);
 		List<String[]> list = new ArrayList<String[]>();
 		for (int i = 0; i < 9; i++) {
 			String[] array = new String[3];
@@ -102,7 +82,7 @@ public class StoreBean {
 			array[2] = store.getLayout().charAt(i + 9) + "";
 			list.add(array);
 		}
-		this.layoutList = list;
+		return layoutList = list;
 	}
 
 	public void editLayout() {
@@ -133,14 +113,6 @@ public class StoreBean {
 
 	public void setStore(Store store) {
 		this.store = store;
-	}
-
-	public int getIdStore() {
-		return idStore;
-	}
-
-	public void setIdStore(int idStore) {
-		this.idStore = idStore;
 	}
 
 	public List<String[]> getLayoutList() {

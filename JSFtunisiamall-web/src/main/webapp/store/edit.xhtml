@@ -4,12 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <ui:composition template="/templates/BasicTemplate.xhtml">
-	<ui:define name="header">
-		<f:metadata>
-			<f:viewParam name="id" value="#{storeBean.idStore}"></f:viewParam>
-			<f:event listener="#{storeBean.getCurrentStore()}" type="preRenderView"></f:event>
-		</f:metadata>
-	</ui:define>
+	<ui:define name="header"></ui:define>
 	<ui:define name="title">Edit Store</ui:define>
 	<ui:define name="content">
 		<h:form>
@@ -23,7 +18,7 @@
 				<h:outputText value="#{storeBean.store.category.libelle}" />
 				<f:facet name="footer">
 					<h:panelGroup style="display:block; text-align:center">
-						<h:commandButton action="#{storeBean.editStore()}" value="Submit" />
+						<h:commandButton action="#{storeBean.updateStore()}" value="Submit" />
 					</h:panelGroup>
 				</f:facet>
 			</h:panelGrid>
