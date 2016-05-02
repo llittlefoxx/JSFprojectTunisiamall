@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <h:head></h:head> 
+  <h:body>
+  
+ <h:form>
+  <h:dataTable 
+  value="#{subCategoriesBean.subcategories}"
+  var="sub"
+  border="1"
+  >
+  <f:facet name="header">
+  <h:outputText value="List subcategories" />
+  </f:facet>
+  <h:column>
+  <f:facet name="header">
+  <h:outputText value="Libelle" />
+  </f:facet>
+  <h:outputText value="#{sub.libelle}" />
+  </h:column>
+   <h:column>
+  <f:facet name="header">
+  <h:outputText value="Description" />
+  </f:facet>
+  <h:outputText value="#{sub.description}" />
+  </h:column>
+  <h:column>
+  <f:facet name="header">
+  <h:outputText value="Category" />
+  </f:facet>
+  <h:outputText value="#{sub.category.libelle}" />
+  </h:column>
+  <h:column>
+  <f:facet name="header">
+  <h:outputText value="delete" />
+  </f:facet>
+  <h:commandButton action="#{subCategoriesBean.doDelete(sub.idSubCategory)}" value="delete" />
+  </h:column>
+  <h:column>
+  <f:facet name="header">
+  <h:outputText value="update" />
+  </f:facet>
+  <h:commandLink action="#{subCategoriesBean.doselect(sub.idSubCategory)}" value="update"  />
+  </h:column>
+  
+ 
+  </h:dataTable>
+  
+  
+  </h:form>
+
+ </h:body>
+</html>

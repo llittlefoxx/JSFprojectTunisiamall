@@ -7,8 +7,8 @@ import edu.tunisiamall.entities.Message;
 
 @Remote
 public interface MessageServiceRemote {
-	public List<Message> getMessagesFromTo(User src, User dest);
-	public List<Message> getMessagesFor(User u);
-	public Message sendMessage(User src, User dest, String text);
-	public boolean deleteMessage(int id);
+	public List<Message> getMessagesFromTo(int src, int dest);
+	public List<Message> getMessagesFor(int idUser);
+	public void sendMessage(int src, int dest, String text);
+	public void deleteMessage(int id);
 }

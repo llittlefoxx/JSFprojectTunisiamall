@@ -50,5 +50,8 @@ public class SubCategoriesServices implements SubCategoriesServicesRemote, SubCa
 				.setParameter("xxx", idCategory);
 		return query.getResultList();
 	}
+	public void saveSubcategory(Subcategory subcategory){
+		em.merge(subcategory);
+	}
 
 }

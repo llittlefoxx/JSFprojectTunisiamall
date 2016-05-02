@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h:form>
+		<h:inputTextarea value="#{chatBean.message.text}" />
+		<h:selectOneMenu value="#{chatBean.message.receiver.idUser}">
+				<f:selectItems value="#{chatBean.UsersList()}" var="item" itemLabel="#{item.login}" itemValue="#{item.idUser}" />
+		</h:selectOneMenu>
+		<h:commandButton action="#{chatBean.SendMessage(chatBean.message.receiver.idUser)}" value="Send" />
+	</h:form>
+</body> 
+</html>

@@ -5,16 +5,11 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/templates/BasicTemplate.xhtml">
-	<ui:define name="header">
-		<f:metadata>
-			<f:viewParam name="id" value="#{storeBean.idStore}"></f:viewParam>
-			<f:event listener="#{storeBean.initLayout()}" type="preRenderView"></f:event>
-		</f:metadata>
-	</ui:define>
+	<ui:define name="header"></ui:define>
 	<ui:define name="title">Store Layout</ui:define>
 	<ui:define name="content">
 		<div id="sortable">
-			<ui:repeat var="item" value="#{storeBean.layoutList}">
+			<ui:repeat var="item" value="#{storeBean.initLayout(1)}">
 				<section class="panel" layoutType="#{item[0]}">
 				<div class="panel-heading head-border">
 					<h2 class="panel-title pull-left">
