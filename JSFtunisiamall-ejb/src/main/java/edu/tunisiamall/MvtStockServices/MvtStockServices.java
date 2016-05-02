@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,6 +26,7 @@ public class MvtStockServices implements MvtStockServicesRemote, MvtStockService
 	@PersistenceContext
 	EntityManager em;
 	
+	@EJB
 	StoreServicesLocal storelocal;
     /**
      * Default constructor. 
@@ -36,7 +38,8 @@ public class MvtStockServices implements MvtStockServicesRemote, MvtStockService
 	@Override
 	public List<Mvtstock> allMyMvtStock(int idStore) {
 		Store st= storelocal.findStoreById(idStore);
-		Query query = em.createQuery("select mvt from Mvtstock mvt where mvt.store=:id").setParameter("id", st);
+		System.out.println("sssss "+ st.getName());
+		Query query = em.createQuery("select mvt from Mvtstock mvt where mvt.product.store=:id").setParameter("id", st);
 		return query.getResultList();
 	
 	}
@@ -58,9 +61,9 @@ public class MvtStockServices implements MvtStockServicesRemote, MvtStockService
 	@Override
 	public List<Mvtstock> findMyMvtStockByProduct(int idStore, int idProd) {
 		Store st= storelocal.findStoreById(idStore);
-		Query query1 = em.createQuery("select p from product p where p.id=:id").setParameter("id", idProd);
+		Query query1 = em.createQuery("select p from Product p where p.idProduct=:id").setParameter("id", idProd);
 		Product prod = (Product) query1.getSingleResult();
-		Query query = em.createQuery("select mvt from Mvtstock mvt where mvt.store=:id and mvt.product=:id2").setParameter("id", st).setParameter("id2", prod);
+		Query query = em.createQuery("select mvt from Mvtstock mvt where mvt.product.store=:id and mvt.product=:id2").setParameter("id", st).setParameter("id2", prod);
 		return query.getResultList();
 		
 	}
@@ -81,9 +84,18 @@ public class MvtStockServices implements MvtStockServicesRemote, MvtStockService
 	public void updateQuantityProductAfterMvtStock(int idProd, int idMvtStock) {
 		
 		Mvtstock mvt = getMvtStock(idMvtStock);
+		System.out.println("dans update: valeur stock ajoute ****  "+ mvt.getQte());
 		Product prod= mvt.getProduct();
+		System.out.println("dans update: valeur qte prod avant  ****  "+ prod.getQte());
 		prod.setQte(prod.getQte()+mvt.getQte());
 		em.merge(em.find(Product.class, prod.getIdProduct()));
+		System.out.println("fin update: valeur qte prod apres  ****  "+ prod.getQte());
+	}
+
+	@Override
+	public Product findProductByIdString(int id) {
+		return em.find(Product.class, id);
+		
 	}
 
 }

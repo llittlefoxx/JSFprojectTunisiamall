@@ -1,0 +1,255 @@
+<html xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	</head>
+
+	<div style="float: left">
+
+		<h2 align="center">List OrderLine</h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<h:dataTable class="table table-striped" border="2"
+				value="#{orderLineBean.orderlines}" var="ol">
+
+				<p:column filterBy="#{ol.idOrderLine}">
+					<f:facet name="header">
+						ID
+					</f:facet>
+					<h:outputText value="#{ol.idOrderLine}" />
+				</p:column >
+				<p:column filterBy="#{ol.product.libelle}">
+					<f:facet name="header">
+						Product
+					</f:facet>
+					<h:outputText value="#{ol.product.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						COMMAND QUANTITY
+					</f:facet>
+					<h:outputText value="#{ol.qte}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						PRICE
+					</f:facet>
+					<h:outputText value="#{ol.product.buyPrice}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						CATEGORY
+					</f:facet>
+					<h:outputText value="#{ol.product.subcategory.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						COMMANDE DATE
+					</f:facet>
+					<h:outputText value="#{ol.order.date}" />
+				</p:column>
+
+
+			</h:dataTable>
+
+
+		</h:form>
+	</div>
+
+
+
+	<div style="float: right;">
+
+		<h2 align="center">Recent OrderLine</h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<h:dataTable class="table table-striped" border="2"
+				value="#{orderLineBean.orderlinesRecents}" var="ol">
+
+				<p:column filterBy="#{ol.idOrderLine}">
+					<f:facet name="header">
+						ID
+					</f:facet>
+					<h:outputText value="#{ol.idOrderLine}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						Product
+					</f:facet>
+					<h:outputText value="#{ol.product.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						COMMAND QUANTITY
+					</f:facet>
+					<h:outputText value="#{ol.qte}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						PRICE
+					</f:facet>
+					<h:outputText value="#{ol.product.buyPrice}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						CATEGORY
+					</f:facet>
+					<h:outputText value="#{ol.product.subcategory.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						COMMANDE DATE
+					</f:facet>
+					<h:outputText value="#{ol.order.date}" />
+				</p:column>
+
+
+			</h:dataTable>
+
+
+		</h:form>
+	</div>
+
+
+
+	<div>
+
+		<h2 align="center">MY PRODUCTS WITH QUANTITY STOCK</h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<h:dataTable class="table table-striped" border="2"
+				value="#{orderLineBean.produits}" var="prod">
+
+				<p:column filterBy="#{ol.idOrderLine}">
+					<f:facet name="header">
+						ID
+					</f:facet>
+					<h:outputText value="#{prod.idProduct}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						Product
+					</f:facet>
+					<h:outputText value="#{prod.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						QUANTITY
+					</f:facet>
+					<h:outputText value="#{prod.qte}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						CATEGORY
+					</f:facet>
+					<h:outputText value="#{prod.subcategory.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						CRITICAL ZONE
+					</f:facet>
+
+					<h:outputText value="#{prod.criticalZone}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						STATUS
+					</f:facet>
+					
+					<h:outputLabel value="Critical Zone" rendered="#{prod.qte lt prod.criticalZone}"  />
+					<h:outputLabel value="Available" rendered= "#{prod.qte gt prod.criticalZone}" />
+					<h:outputLabel value="Critical Zone" rendered="#{prod.qte==prod.criticalZone}"  />	
+					
+				</p:column>
+
+
+			</h:dataTable>
+
+
+		</h:form>
+	</div>
+
+
+
+	<div >
+
+		<h2 align="center"> ORDRED PRODUCTS FOR TODAY </h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<h:dataTable class="table table-striped" border="2"
+				value="#{orderLineBean.produitsFromOrders}" var="prod">
+
+				<p:column>
+					<f:facet name="header">
+						Product
+					</f:facet>
+					<h:outputText value="#{prod[0].libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						ORDERED QUANTITY
+					</f:facet>
+					<h:outputText value="#{prod[1]}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						CATEGORY
+					</f:facet>
+					<h:outputText value="#{prod[0].subcategory.libelle}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						STATUS
+					</f:facet>
+					
+					<h:outputLabel value="Critical Zone" rendered="#{prod[1] gt prod[0].qte}"  />
+					<h:outputLabel value="Safe" rendered= "#{prod[1] lt prod[0].qte}" />
+					<h:outputLabel value="Critical Zone" rendered="#{prod[1]==prod[0].qte}"  />	
+					
+				</p:column>
+
+
+			</h:dataTable>
+
+
+		</h:form>
+	</div>
+
+
+
+</ui:composition>
+</html>
