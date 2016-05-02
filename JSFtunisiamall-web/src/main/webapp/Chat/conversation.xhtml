@@ -4,22 +4,24 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
-	<h:form>
-		<ui:repeat var="item" value="#{chatBean.conversation}">
-			<h:outputText value="#{item.sender.login}" />
-			<h:outputText value="#{item.receiver.login}" />
-			<h:outputText value="#{item.text}" />
-			<h:outputText value="#{item.date}" />
-			<h:commandButton
-				action="#{chatBean.DeleteMessage(2, item.idMessage)}" value="Delete" />
-			<br />
-		</ui:repeat>
-	</h:form>
-	<h:form>
-		<h:inputTextarea value="#{chatBean.message.text}" />
-		<h:commandButton action="#{chatBean.SendMessage(2)}" value="Send" />
-	</h:form>
-</body>
+<ui:composition template="/templates/DashboardTemplate.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<ui:repeat var="item" value="#{chatBean.conversation}">
+				<h:outputText value="#{item.sender.login}" />
+				<h:outputText value="#{item.receiver.login}" />
+				<h:outputText value="#{item.text}" />
+				<h:outputText value="#{item.date}" />
+				<h:commandButton
+					action="#{chatBean.DeleteMessage(2, item.idMessage)}"
+					value="Delete" />
+				<br />
+			</ui:repeat>
+		</h:form>
+		<h:form>
+			<h:inputTextarea value="#{chatBean.message.text}" />
+			<h:commandButton action="#{chatBean.SendMessage(2)}" value="Send" />
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

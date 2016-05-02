@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/templates/layout.xhtml">
+	<ui:define name="content">
+	
+		<div class="row">
+			<div class="col-lg-12">
+				<section class="panel">
+					<header class="panel-heading"> Ajouter Un Evenements </header>
+					<div class="panel-body">
+						<div class="form">
+							<h:form styleClass="cmxform form-horizontal tasi-form" prependId="false">
+								<div class="form-group ">
+									<label for="title" class="control-label col-lg-2">Titre Event *</label>
+									<div class="col-lg-10">
+										<h:inputText value="#{eventsBeans.event.titleEvent}" styleClass="form-control required" id="title"/>
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="type" class="control-label col-lg-2">Type Event *</label>
+									<div class="col-lg-10">
+										<h:inputText value="#{eventsBeans.event.typeEvent}" styleClass="form-control" id="type" />
+									</div>
+								</div>
+								<div class="form-group ">
+									<label class="control-label col-lg-2">Nom
+										Store *</label>
+									<div class="col-lg-10">
+										<select class="form-control m-b-10">
+											<option>zara</option>
+											<option>pull bear</option>
+											<option>bershka</option>
+											<option>ralph lauren</option>
+											<option>massimo dotti</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+                                <label class="control-label col-md-2">Date Event</label>
+                                <div class="col-md-9 col-xs-11" data-date-format="yyyy-mm-dd">
+                                    
+                                    <h:inputText value="#{eventsBeans.dateEvent}" styleClass="form-control form-control-inline input-medium default-date-picker" />
+                                    <span class="help-block">Select date</span>
+                                </div>
+                            </div>
+								
+								<div class="form-group ">
+									<label class="col-lg-2 control-label">Periode Event *</label>
+
+									<div class="col-md-6">
+										<div class="input-group bootstrap-touchspin">
+											
+												
+												<h:inputText value="#{eventsBeans.event.periodEvent}" id="demo3" styleClass="form-control" name="demo3" />
+										</div>
+									</div>
+								</div>
+
+								<section class="panel">
+									<header class="panel-heading "> Description Event </header>
+									<div class="panel-body">
+										<h:inputTextarea value="#{eventsBeans.event.description}" styleClass="wysihtml5 form-control" rows="9"/>
+									</div>
+								</section>
+
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<h:commandButton action="#{eventsBeans.ajoutEvents()}" value="Save" styleClass="btn btn-success" />
+										<button class="btn btn-default" type="button">Cancel</button>
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/layout.xhtml">
+	<ui:define name="content">
+		<h:inputHidden id="calender" value="#{eventsBeans.calender}" />
+		<!-- page head start minaa-->
+		<div class="page-head">
+			<h3 class="m-b-less">Calendar</h3>
+			<!--<span class="sub-title">Welcome to Static Table</span>-->
+			<div class="state-information">
+				<ol class="breadcrumb m-b-less bg-less">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Components</a></li>
+					<li class="active">Calendar</li>
+				</ol>
+			</div>
+
+		</div>
+		<!-- page head end-->
+
+		<!--body wrapper start-->
+		<div class="wrapper">
+
+			<!-- page start-->
+			<div class="row">
+				<aside class="col-lg-3">
+					<h4 class="drg-event-title">Add Events</h4>
+
+					<h:form role="form">
+						<h:commandButton action="eventAjout" value="Add New Event"
+							styleClass="btn btn-primary" style="width:100%" />
+					</h:form>
+
+					<div id='external-events' class="m-t-30 m-b-30"></div>
+				</aside>
+				<aside class="col-lg-9">
+					<section class="panel">
+						<div class="panel-body">
+							<div id="calendar" class="has-toolbar"></div>
+						</div>
+					</section>
+				</aside>
+			</div>
+			<!-- page end-->
+
+		</div>
+	</ui:define>
+</ui:composition>

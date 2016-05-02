@@ -4,16 +4,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
-	<h:form>
-		<ui:repeat var="item" value="#{chatBean.Inbox()}">
-			<h:outputText value="#{item.text}" />
-			<h:commandButton
-				action="#{chatBean.Converstation(item.sender.idUser)}"
-				value="View conversation" />
-			<br />
-		</ui:repeat>
-	</h:form>
-</body>
+<ui:composition template="/templates/DashboardTemplate.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<ui:repeat var="item" value="#{chatBean.Inbox()}">
+				<h:outputText value="#{item.text}" />
+				<h:commandButton
+					action="#{chatBean.Converstation(item.sender.idUser)}"
+					value="View conversation" />
+				<br />
+			</ui:repeat>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>
