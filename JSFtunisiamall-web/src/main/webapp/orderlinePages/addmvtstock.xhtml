@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,22 +7,13 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
-	<head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-<h:outputStylesheet  library="css" name="application.css" />
-
-	</head>
 
 
-	<script>
+<ui:composition template="/templates/DashboardTemplate.xhtml">
+	<ui:define name="content">
+
+
+		<script>
   function ddListChange(){
 	 
 	  var selid = $("#myOption option:selected").attr("data-value");
@@ -32,8 +24,8 @@
 	  
   }
   </script>
-  
-  <script>
+
+		<script>
   function visible(){
 	 
 	  document.getElementById("div3").style.visibility="visible";
@@ -42,203 +34,237 @@
 	  
   }
   </script>
-	<h2 align="center">My Movement Stock Product</h2>
-<div style="float: inherit;">
-	<h:form id="formm" class="form-horizontal" role="form">
-	
-	<p:growl id="growl" showDetail="true" sticky="true" /> 
-		<div class="form-group">
-			<h:outputLabel class="control-label col-sm-2" value="PRODUCT" />
-			<div class="col-sm-10">
+		<h2 align="center">My Movement Stock Product</h2>
+		<div style="float: inherit;">
+			<h:form id="formm" class="form-horizontal" role="form">
+
+		<p:dialog id="dlg2" widgetVar="dlg3">
 
 
-				<select class="control-label col-sm-2" id="myOption"
-					onchange="ddListChange()">
-					<option value="">Product…</option>
-					<c:forEach var="prod" items="#{mvtStockBean.products}">
-						
-						<option data-value="#{prod.idProduct}">#{prod.libelle}</option>
+						<p:messages />
 
-					</c:forEach>
-			
+					</p:dialog>
+					
+					
+					<p:dialog id="dlg4" widgetVar="dlg5">
 
-				</select>
-		
-		
-		<p:inputText type="hidden" id="test" value="#{mvtStockBean.input}"/>
-		<f:ajax event="click" execute="test" render="#{mvtStockBean.input} "  />
-			</div>
+
+						<p:messages />
+
+					</p:dialog>
+
+
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<div class="form-group">
+					<h:outputLabel class="control-label col-sm-2" value="PRODUCT" />
+					<div class="col-sm-10">
+
+
+						<select class="control-label col-sm-2" id="myOption"
+							onchange="ddListChange()">
+							<option value="">Product…</option>
+							<c:forEach var="prod" items="#{mvtStockBean.products}">
+
+								<option data-value="#{prod.idProduct}">#{prod.libelle}</option>
+
+							</c:forEach>
+
+
+						</select>
+
+
+						<p:inputText type="hidden" id="test" value="#{mvtStockBean.input}" />
+						<f:ajax event="click" execute="test"
+							render="#{mvtStockBean.input} " />
+
+
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="NATURE" class="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<input type="text" placeholder="Enter nature movement"
+							class="form-control" jsf:value="#{mvtStockBean.mvtstock.nature}"
+							required="required" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="STOCK" class="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<input type="text" placeholder="Enter quantity"
+							class="form-control" jsf:value="#{mvtStockBean.mvtstock.qte}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="DESCRIPTION" class="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<textarea rows="5" required="required"
+							placeholder="Put description" class="form-control"
+							jsf:value="#{mvtStockBean.mvtstock.description}" />
+					</div>
+				</div>
+
+
+				<div class="form-group">
+
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary btn-lg"
+							jsf:action="#{mvtStockBean.addMvtstockk()}">SUBMIT</button>
+					</div>
+				</div>
+			</h:form>
 		</div>
-		<div class="form-group">
-			<h:outputLabel value="NATURE" class="control-label col-sm-2" />
-			<div class="col-sm-10">
-				<input type="text" placeholder="Enter nature movement"
-					class="form-control" jsf:value="#{mvtStockBean.mvtstock.nature}"
-					required="required" />
-			</div>
-		</div>
-		<div class="form-group">
-			<h:outputLabel value="STOCK" class="control-label col-sm-2" />
-			<div class="col-sm-10">
-				<input type="text" placeholder="Enter quantity" class="form-control"
-					jsf:value="#{mvtStockBean.mvtstock.qte}" />
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<h:outputLabel value="DESCRIPTION" class="control-label col-sm-2" />
-			<div class="col-sm-10">
-				<textarea rows="5" required="required" placeholder="Put description"
-					class="form-control"
-					jsf:value="#{mvtStockBean.mvtstock.description}" />
-			</div>
-		</div>
-
-		
-		<div class="form-group">
-		
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary btn-lg"  jsf:action="#{mvtStockBean.addMvtstockk()}" onclick="visible()">SUBMIT</button>
-			</div>
-		</div>
-	</h:form>
-</div >
-	<div id="div2" style="float: left;" >
-		
-
-		<h:form>
+		<div class="col-sm-6">
+			<h2 class="panel-heading head-border">Movement Stock</h2>
 
 
-			<p:growl autoUpdate="true" />
-<h2 align="center">Movement Stock </h2>
-			<h:dataTable id="datat" class="table table-striped" border="2"
-				value="#{mvtStockBean.mvtstocks}" var="mv">
+			<h:form>
 
-			
-				
-				
-				<p:column >
-					<f:facet name="header">
-						PRODUCT
-					</f:facet>
-					<h:outputText value="#{mv.product.libelle}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
+
+				<p:growl autoUpdate="true" />
+
+				<p:dataTable  scrollable="true" scrollHeight="150"
+					reflow="true" rows="7" paginator="true"
+					value="#{mvtStockBean.mvtstocks}" var="mv" selectionMode="single"
+					selection="#{mvtStockBean.mvtstockselected}" rowKey="#{mv.idMvt}">
+					<p:ajax event="rowSelect" listener="#{mvtStockBean.onRowSelect}"
+							update=":formm:dlg4" />
+							
+							
+					<p:column filterBy="#{mv.product.libelle}" headerText="PRODUCT">
+
+						<h:outputText value="#{mv.product.libelle}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
 						NATURE
 					</f:facet>
-					<h:outputText value="#{mv.nature}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
+						<h:outputText value="#{mv.nature}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
 						DESCRIPTION
 					</f:facet>
-					<h:outputText value="#{mv.description}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
+						<h:outputText value="#{mv.description}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
 						DATE
 					</f:facet>
-					<h:outputText value="#{mv.date}" />
-				</p:column>
-				<p:column filterBy="#{mv.qte}">
-					<f:facet name="header">
+						<h:outputText value="#{mv.date}" />
+					</p:column>
+					<p:column >
+						<f:facet name="header">
 						QUANTITY
 					</f:facet>
-					<h:outputText value="#{mv.qte}" />
-				</p:column>
+						<h:outputText value="#{mv.qte}" />
+					</p:column>
 
 
-			</h:dataTable>
-
-
-
+				</p:dataTable>
 
 
 
 
-		</h:form>
-	</div>
 
 
-	<div id="div3" style="float: right; visibility: hidden" >
-		
 
-		<h:form>
-
-
-			<p:growl autoUpdate="true" />
-<h2 align="center">Movement Stock By Product</h2>
-			<h:dataTable id="datat" class="table table-striped" border="2"
-				value="#{mvtStockBean.mvtstocksProd}" var="mv">
-
-			
-				
-				
-				<p:column filterBy="#{mv.product.libelle}">
-					<f:facet name="header">
-						PRODUCT
-					</f:facet>
-					<h:outputText value="#{mv.product.libelle}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						NATURE
-					</f:facet>
-					<h:outputText value="#{mv.nature}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						DESCRIPTION
-					</f:facet>
-					<h:outputText value="#{mv.description}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						DATE
-					</f:facet>
-					<h:outputText value="#{mv.date}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						QUANTITY
-					</f:facet>
-					<h:outputText value="#{mv.qte}" />
-				</p:column>
-
-
-			</h:dataTable>
 			</h:form>
 
+		</div>
 
-<p>
-<br/>
-</p>
 
-<h:form text-align="center" >
-<p:growl autoUpdate="true" />	
-<h2 align="center">PRODUCT SHEET</h2>
-	
-			
-			
-				<h:outputLabel class="control-label col-sm-2" value="PRODUCT" />
-		
-				<input  class="form-control" value="#{mvtStockBean.product.libelle}" disabled="disabled"  />
-		
-				<h:outputLabel class="control-label col-sm-2" value="OLD STOCK VALUE " />
-			
-				<input class="form-control" value="#{mvtStockBean.ancienqte}" disabled="disabled" />
-				
-				<h:outputLabel class="control-label col-sm-2" value="NEW STOCK VALUE" />
-		
-			<input class="form-control" value="#{mvtStockBean.product.qte}" disabled="disabled" />
-		
-		
-		</h:form>
+		<div id="div3" jsf:rendered="#{mvtStockBean.input ne null}">
+			<div class="col-sm-6" >
+				<h:form>
 
+					<p:growl autoUpdate="true" />
+					<h2 class="panel-heading head-border" align="center">Movement
+						Stock By Product</h2>
+						
+					<p:dataTable id="datat" scrollable="true" scrollHeight="150"
+						reflow="true" rows="7" paginator="true"
+						value="#{mvtStockBean.mvtstocksProd}" var="mv"
+						selectionMode="single"
+						selection="#{mvtStockBean.mvtstockselected}" rowKey="#{mv.idMvt}">
+				<p:ajax event="rowSelect" listener="#{mvtStockBean.onRowSelect}"
+							update=":formm:dlg2" />
+
+
+
+
+
+						<p:column >
+							<f:facet name="header">
+						PRODUCT
+					</f:facet>
+							<h:outputText value="#{mv.product.libelle}" />
+						</p:column>
+						<p:column filterBy="#{mv.nature}">
+							<f:facet name="header">
+						NATURE
+					</f:facet>
+							<h:outputText value="#{mv.nature}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+						DESCRIPTION
+					</f:facet>
+							<h:outputText value="#{mv.description}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+						DATE
+					</f:facet>
+							<h:outputText value="#{mv.date}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+						QUANTITY
+					</f:facet>
+							<h:outputText value="#{mv.qte}" />
+						</p:column>
+
+
+					</p:dataTable>
+				</h:form>
+
+			</div>
+			<p>
+				<br />
+			</p>
+<div>
+			<form>
+				<p:growl autoUpdate="true" />
+				<h2 align="center">PRODUCT SHEET</h2>
+
+
+
+				<h:outputLabel style="font-weight:bold" class="control-label col-sm-2" value="PRODUCT" />
+
+				<input class="form-control" value="#{mvtStockBean.product.libelle}"
+					disabled="disabled" />
+
+				<h:outputLabel style="font-weight:bold" class="control-label col-sm-2"
+					value="OLD STOCK VALUE " />
+
+				<input class="form-control" value="#{mvtStockBean.ancienqte}"
+					disabled="disabled" />
+
+				<h:outputLabel style="font-weight:bold" class="control-label col-sm-2"
+					value="NEW STOCK VALUE" />
+
+				<input class="form-control" value="#{mvtStockBean.product.qte}"
+					disabled="disabled" />
+
+</form>
+			
+</div>
+		
 </div>
 
+	</ui:define>
 
-		
-	
 </ui:composition>
+</html>

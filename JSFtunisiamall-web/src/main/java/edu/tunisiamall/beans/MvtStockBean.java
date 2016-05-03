@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,13 +14,18 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
 import edu.tunisiamall.MvtStockServices.MvtStockServicesLocal;
 import edu.tunisiamall.OrderlineServices.OrderLineServicesLocal;
 import edu.tunisiamall.entities.Mvtstock;
+import edu.tunisiamall.entities.OrderLine;
 import edu.tunisiamall.entities.Product;
 
 @ManagedBean
-@SessionScoped 
+@RequestScoped 
 public class MvtStockBean {
 
 	Mvtstock mvtstock ;
@@ -27,6 +33,8 @@ public class MvtStockBean {
 	List<Mvtstock> mvtstocks;
 	List<Mvtstock> mvtstocksProd;
 	List<Mvtstock> mvtstocksProd2;
+	
+	
 	public List<Mvtstock> getMvtstocksProd2() {
 		return mvtstocksProd2;
 	}
@@ -179,6 +187,30 @@ public class MvtStockBean {
 		
 		
 		
+		 public void onRowSelect(SelectEvent event) {
+			 Mvtstock mv = (Mvtstock) event.getObject();
+			 System.out.println("event Mvtstock:  **** "+mv.getIdMvt());
+			 
+					
+					FacesMessage msg = new FacesMessage(" :) The quantity of "+mv.getProduct().getLibelle()+" is already updated!!");
+					
+			        FacesContext.getCurrentInstance().addMessage(null, msg);
+			
+		       
+		       
+		    }
 		
-		
+		 public Mvtstock onRowSelect2(SelectEvent event) {
+			 Mvtstock mv = (Mvtstock) event.getObject();
+			 System.out.println("event Mvtstock:  **** "+mv.getIdMvt());
+			return mvtstockselected;
+		       
+		       
+		    }
+		 
+		 public void onRowUnselect(UnselectEvent event)
+		 {
+		 FacesMessage msg = new FacesMessage("Mvt Unselected");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+}
 }

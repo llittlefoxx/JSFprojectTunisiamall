@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/DashboardTemplate.xhtml">
+	<ui:define name="content">
+
+
+
+
+		<h:form>
+
+
+			<p:fieldset legend="PRODUCT SHEET" style="margin-bottom:20px">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:graphicImage
+						url="http://localhost:18080/JSFtunisiamall-web/resources/img/pant.jpg"
+						height="200 " width="200" />
+					<br />
+
+					<h:outputLabel class="control-label col-sm-2" value="PRODUCT" />
+
+					<input id="in" class="form-control"
+						value="#{orderLineBean.getProductFromRequest().libelle}" disabled="disabled" />
+
+					<h:outputLabel class="control-label col-sm-2" value="QUANTITY" />
+
+					<input class="form-control"
+						value="#{orderLineBean.getProductFromRequest().qte}" disabled="disabled" />
+
+					<h:outputLabel class="control-label col-sm-2" value="CATEGORY" />
+
+					<input class="form-control"
+						value="#{orderLineBean.getProductFromRequest().subcategory.category.libelle}"
+						disabled="disabled" />
+					<h:outputLabel style="font-weight:bold;text-align : center;"
+						class="control-label col-sm-2" value="" />
+					<input class="form-control" value="CRITICAL ZONE"
+						disabled="disabled" />
+
+
+					<h:form>
+						<p:growl id="message" showDetail="true" />
+
+						<p:commandButton value="Verify Stock">
+							<p:confirm header="Confirmation"
+								message="Do You want to add a new stock for this product?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton action="#{orderLineBean.goToAddProduct}"
+								value="Yes" type="submit" styleClass="ui-confirmdialog-yes"
+								icon="ui-icon-check" />
+							<p:commandButton action="#{orderLineBean.returnToDashboard}"
+								value="No" type="submit" styleClass="ui-confirmdialog-no"
+								icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:form>
+
+
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+
+
+
+
+
+
+
+
+
+		<h:form>
+
+
+			<p:panel id="basic" header="#{orderLineBean.productParam.libelle}"
+				style="margin-bottom:20px">
+
+			</p:panel>
+
+		</h:form>
+
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

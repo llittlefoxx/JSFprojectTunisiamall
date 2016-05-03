@@ -18,6 +18,8 @@
 		<version.wildfly>9.0.1.Final</version.wildfly>
 		<version.hibernate>4.3.10.Final</version.hibernate>
 		<primefaces.version>5.3</primefaces.version>
+		<commons.io.version>1.4</commons.io.version>
+		<commons.fileupload.version>1.2.1</commons.fileupload.version>
 
 		<version.compiler.plugin>3.1</version.compiler.plugin>
 		<version.ear.plugin>2.10</version.ear.plugin>
@@ -58,7 +60,17 @@
 				<artifactId>primefaces</artifactId>
 				<version>${primefaces.version}</version>
 			</dependency>
+<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
 
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons.fileupload.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
