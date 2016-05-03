@@ -34,6 +34,7 @@ public class ChatBean {
 	public void SendMessage(int idUser){
 		messageService.sendMessage(currentIdUser, idUser, message.getText());
 		conversation = messageService.getMessagesFromTo(currentIdUser, idUser);
+		message.setText("");
 	}
 	
 	public void DeleteMessage(int idUser, int idMessage){

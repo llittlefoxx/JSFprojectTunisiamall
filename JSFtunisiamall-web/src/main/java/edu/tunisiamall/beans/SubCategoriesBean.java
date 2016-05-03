@@ -27,7 +27,6 @@ public class SubCategoriesBean {
 	}
 
 	Subcategory subcategory;
-	//private int idSubcategory;
 
 	public Subcategory getSubcategory() {
 		return subcategory;
@@ -63,27 +62,25 @@ public class SubCategoriesBean {
 		subcategory = subcategoryService.findSubCategoryById(idSubcategory);
 		return navigateTo; 
 	}
-	public void doAdd(){
+	public String doAdd(){
+		String navigateTo = "/SubCategories/SubcategoriesList?faces-redirect=true";
 		subcategoryService.addSubCategory(subcategory);
 		Subcategories = subcategoryService.findAll();
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("SubcategoriesList.jsf");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		subcategory = new Subcategory();
+		subcategory.setCategory(new Category());
+		return navigateTo;
 	}
 	public void doDelete(int idSubcategory){
 		subcategoryService.deleteSubCategories(idSubcategory);
 		Subcategories = subcategoryService.findAll();
 	}
-	public void doUpdate(Subcategory subcategory){
+	public String doUpdate(Subcategory subcategory){
+		String navigateTo = "/SubCategories/SubcategoriesList?faces-redirect=true";
 		subcategoryService.saveSubcategory(subcategory);
 		Subcategories = subcategoryService.findAll();
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("SubcategoriesList.jsf");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		subcategory = new Subcategory();
+		subcategory.setCategory(new Category());
+		return navigateTo;
 	}
 	public List<Category> ListCategories(){
 		return categories = categoryService.findAll();

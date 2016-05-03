@@ -4,23 +4,48 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/templates/DashboardTemplate.xhtml">
+<ui:composition template="/templates/layout.xhtml">
+	<ui:define name="title">Create Sub-Category</ui:define>
 	<ui:define name="content">
-		<h:form>
-			<h:outputLabel value="Libelle" />
-			<h:inputText value="#{subCategoriesBean.subcategory.libelle}" />
-			<h:outputLabel value="Description" />
-			<h:inputText value="#{subCategoriesBean.subcategory.description}" />
-			<h:outputLabel value="List of Categories" />
-			<h:outputText value="#{subCategoriesBean.ListCategories().size()}" />
-			<h:selectOneMenu
-				value="#{subCategoriesBean.subcategory.category.idCategory}">
-				<f:selectItems value="#{subCategoriesBean.ListCategories()}"
-					var="item" itemLabel="#{item.libelle}"
-					itemValue="#{item.idCategory}" />
-			</h:selectOneMenu>
-			<h:commandButton action="#{subCategoriesBean.doAdd()}" value="add" />
-		</h:form>
+		<div class="page-head">
+			<h3 class="m-b-less">Create Sub-Category</h3>
+		</div>
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel"> <header class="panel-heading">
+					Sub-Category Details </header>
+					<div class="panel-body">
+						<h:form>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Label</label>
+								<h:inputText value="#{subCategoriesBean.subcategory.libelle}"
+									styleClass="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Description</label>
+								<h:inputTextarea
+									value="#{subCategoriesBean.subcategory.description}"
+									styleClass="form-control" />
+							</div>
+							<h:outputLabel value="List of Categories" />
+							<div class="form-group">
+								<h:selectOneMenu
+									value="#{subCategoriesBean.subcategory.category.idCategory}"
+									styleClass="form-control">
+									<f:selectItems value="#{subCategoriesBean.ListCategories()}"
+										var="item" itemLabel="#{item.libelle}"
+										itemValue="#{item.idCategory}" />
+								</h:selectOneMenu>
+							</div>
+							<h:commandButton action="#{subCategoriesBean.doAdd()}"
+								value="Submit" styleClass="btn btn-info" />
+						</h:form>
+					</div>
+					</section>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>
 </html>
