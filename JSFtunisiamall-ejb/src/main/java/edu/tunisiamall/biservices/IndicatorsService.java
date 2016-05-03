@@ -27,7 +27,7 @@ import edu.tunisiamall.entities.Store;
  * Session Bean implementation class IndicatorsService
  */
 @Stateless
-public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServiceLocal {
+public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsServiceLocal {
 
 	/**
 	 * Default constructor.
@@ -142,8 +142,8 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 
 	@Override
 	public List<Product> getProductsByPromotionSugg(int idSugP) {
-		 Query query = em.createQuery("select p from Product p where p.promotionSuggest.idPromotionSuggest = :idSugP")
-		 .setParameter("idSugP", idSugP);
+		Query query = em.createQuery("select p from Product p where p.promotionSuggest.idPromotionSuggest = :idSugP")
+				.setParameter("idSugP", idSugP);
 		return query.getResultList();
 	}
 
@@ -307,21 +307,63 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 	}
 
 	@Override
-	public List<Image> getImagesByProduct(int id) {
-		Query query=em.createQuery("select i from Image i where i.product.idProduct=:id").setParameter("id", id);
-		
+	public Image getImagesByProduct(int id) {
+		Query query = em.createNativeQuery("select * from image where idProduct=?", Image.class).setParameter(1, id);
+		Image img = new Image();
+		try {
+			img = (Image) query.getSingleResult();
+		} catch (Exception e) {
+			img.setImagePath("http://onlysupermarket.com/images/des.jpg");
+		}
+
+		return img;
+	}
+
+	@Override
+	public void rateProduct(AnonimousRating an) {
+		Date date = new Date();
+		an.setDate(date);
+		em.persist(an);
+	}
+
+	@Override
+	public void createPromotion(Promotion promotion) {
+		em.persist(promotion);
+
+	}
+
+	@Override
+	public List<Promotion> getAllPromotions() {
+		Query query = em.createNamedQuery("Promotion.findAll");
 		return query.getResultList();
 	}
-@Override
-public void rateProduct(AnonimousRating an){
-	Date date=new Date();
-	an.setDate(date);
-	em.persist(an);
-}
 
-@Override
-public void createPromotion(Promotion promotion) {
-	em.persist(promotion);
+	@Override
+	public void addProduct(Product p) {
+		em.persist(p);
+
+	}
+
+	@Override
+	public void insertImage(int idProd, String path) {
+
+		Product p = findProductById(idProd);
+		Image img = new Image();
+		img.setProduct(p);
+		img.setImagePath(path);
+		em.persist(img);
+	}
+
+	@Override
+	public void deleteProd(int id) {
+		try {
+			Image img = getImagesByProduct(id);
+			em.remove(img);
+			Product p = em.find(Product.class, id);
+			em.remove(p);
+		} catch (Exception e) {
+			System.out.println("erreur suppression img ou produit");
+		}
 	
-}
+	}
 }

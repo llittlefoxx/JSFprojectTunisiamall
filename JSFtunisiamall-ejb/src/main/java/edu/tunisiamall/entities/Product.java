@@ -67,6 +67,23 @@ public class Product implements Serializable {
 		this.subcategory = subcategory;
 	}
 
+	public Product(double buyPrice, Date expDate, String libelle, int qte, int criticalZone, double sellPrice,
+			String state, String tag, double tax,
+			 Store store, Subcategory subcategory) {
+		super();
+		this.buyPrice = buyPrice;
+		this.expDate = expDate;
+		this.libelle = libelle;
+		this.qte = qte;
+		this.criticalZone = criticalZone;
+		this.sellPrice = sellPrice;
+		this.state = state;
+		this.tag = tag;
+		this.tax = tax;
+		this.store = store;
+		this.subcategory = subcategory;
+	}
+
 	public Product() {
 	}
 

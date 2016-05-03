@@ -54,7 +54,6 @@ public class CategoryServices implements CategoryServicesRemote, CategoryService
 		return em.find(Category.class, idCategory);
 	}
 
-
 	@Override
 	public List<Category> findAll() {
 		Query query = em.createQuery("select c from Category c");
@@ -63,8 +62,9 @@ public class CategoryServices implements CategoryServicesRemote, CategoryService
 
 	@Override
 	public List<Category> SearchCategory(String L) {
-		
-		Query query = em.createQuery("select c from Category c where c.libelle like :Name").setParameter("Name","%" + L + "%");
+
+		Query query = em.createQuery("select c from Category c where c.libelle like :Name").setParameter("Name",
+				"%" + L + "%");
 		return query.getResultList();
 
 	}
@@ -85,9 +85,12 @@ public class CategoryServices implements CategoryServicesRemote, CategoryService
 
 	@Override
 	public Category findCategoryByName(String name) {
-		Query query = em.createQuery("select c from Category c where c.libelle like :Name").setParameter("Name", name);
-
-		return (Category) query.getSingleResult();
+		Query query = em.createQuery("select c from Category c where c.libelle =:Name").setParameter("Name", name);
+		Category c = new Category();
+		c = (Category) query.getSingleResult();
+		System.out.println("--- " + c.getLibelle());
+		System.out.println("--- " + c.getDescription());
+		return c;
 	}
 
 	@Override
@@ -111,12 +114,10 @@ public class CategoryServices implements CategoryServicesRemote, CategoryService
 	@Override
 	public Category SearchCategory2(String L) {
 		// TODO Auto-generated method stub
-		//String queryText = 
-		Query query = em.createQuery("select c from Category c where c.libelle=:name")
-				.setParameter("name",L);
+		// String queryText =
+		Query query = em.createQuery("select c from Category c where c.libelle=:name").setParameter("name", L);
 		return (Category) query.getSingleResult();
-		
-	}
 
+	}
 
 }

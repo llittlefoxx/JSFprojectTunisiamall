@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<body>
+	<h:form id="form">
+		<p:panel id="panel" header="Add new Product"
+			style="margin-bottom:10px;">
+			<p:messages id="messages" />
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="libelle" value="Libelle" />
+				<p:inputText id="libelle" value="#{foView.libelle}" required="true"
+					label="Libelle">
+					<f:validateLength minimum="2" />
+				</p:inputText>
+				<p:message for="libelle" />
+
+				<p:outputLabel for="qte" value="Quantity" />
+				<p:spinner id="qte" value="#{foView.qte}" required="true"
+					label="Quantity">
+					<f:validateDoubleRange minimum="1" maximum="99999" />
+				</p:spinner>
+				<p:message for="qte" />
+
+				<p:outputLabel for="citi" value="Critical zone" />
+				<p:spinner id="citi" value="#{foView.criticalZone}" required="true"
+					label="Critical zone">
+					<f:validateDoubleRange minimum="1" maximum="99999" />
+				</p:spinner>
+				<p:message for="citi" />
+
+				<p:outputLabel for="sp" value="Sell Price" />
+				<p:inputText id="sp" value="#{foView.sellPrice}" required="true"
+					label="Sell price">
+					<f:convertNumber type="currency" currencySymbol="$" />
+				</p:inputText>
+				<p:message for="sp" />
+
+				<p:outputLabel for="bp" value="Buy Price" />
+				<p:inputText id="bp" value="#{foView.buyPrice}" required="true"
+					label="Buy price">
+					<f:convertNumber type="currency" currencySymbol="$" />
+				</p:inputText>
+				<p:message for="bp" />
+
+
+				<p:outputLabel for="state" value="State" />
+				<p:inputText id="state" value="#{foView.state}" required="true"
+					label="State" />
+				<p:message for="state" />
+    
+				<p:outputLabel for="tax" value="Tax" />
+				<p:spinner id="tax" value="#{foView.tax}" label="Tax">
+					<f:validateDoubleRange minimum="1.0" maximum="999.0" />
+				</p:spinner>
+				<p:message for="tax" />
+
+				<p:outputLabel for="console" value="Category" />
+				<p:selectOneMenu id="console" 
+				 converter="#{categoryConverterBean}"
+				value="#{foView.selectedCategory}"
+					style="width:125px">
+					<f:selectItems value="#{foView.categoryss}" />
+				</p:selectOneMenu>
+				<br />
+				<p:outputLabel for="pro" value="Promotion" />
+				<p:selectOneMenu id="pro" value="#{foView.selectedCategory}"
+					style="width:125px">
+					<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+					<f:selectItems value="#{foView.promotions}" var="promotion"
+						itemValue="#{promotion}" itemLabel="#{promotion.name}" />
+				</p:selectOneMenu>
+				
+
+				<br />
+				
+				<p:outputLabel for="tag" value="Tag" />
+				<p:inputTextarea id="tag" value="#{foView.tag}" label="Tag" />
+				<p:message for="tag" />
+
+				<p:outputLabel for="expdate" value="Expiration date" />
+				<p:calendar id="expdate" value="#{foView.expDate}"
+					pattern="MM/dd/yyyy HH:mm:ss" />
+				<p:message for="expdate" />
+								
+					<p:outputLabel for="img" value="Image" />
+				<p:inputText id="img" value="#{foView.imgPath}" required="true"
+					label="Image" />
+				<p:message for="img" />
+				
+				<p:outputLabel for="vis" value="Preview" />
+				<p:graphicImage id="vis" value="#{foView.imgPath}" label="preview" width="200" height="200"/>
+				<p:message for="vis" />
+				
+
+			</h:panelGrid>
+		</p:panel>
+
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Submit" update="panel"
+					actionListener="#{foView.save}" style="margin-right:20px;" />
+			</f:facet>
+
+			<f:facet name="right">
+
+				<p:commandButton value="Reset Code" update="panel" process="@this"
+					actionListener="#{foView.reset}" style="margin-right:20px;" />
+
+			</f:facet>
+		</p:toolbar>
+	</h:form>
+</body>
+</html>

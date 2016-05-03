@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-
+@NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p")
 public class Promotion implements Serializable {
 
 	@Id

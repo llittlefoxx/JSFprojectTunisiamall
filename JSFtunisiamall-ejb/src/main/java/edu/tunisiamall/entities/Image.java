@@ -11,7 +11,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="images")
+@Table(name="image")
 @NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
 public class Image implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,6 @@ public class Image implements Serializable {
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="idProduct")
-	//@JsonBackReference
 	private Product product;
 
 	public Image() {
