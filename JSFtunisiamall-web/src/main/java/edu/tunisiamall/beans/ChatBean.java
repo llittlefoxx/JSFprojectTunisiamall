@@ -41,6 +41,13 @@ public class ChatBean {
 		message = new Message();
 		message.setReceiver(new User());
 	}
+	
+	public void doSend(int idUser){
+		messageService.sendMessage(currentUserId, idUser, message.getText());
+		inbox = messageService.getMessagesFor(currentUserId);
+		message = new Message();
+		message.setReceiver(new User());
+	}
 
 	public void DeleteMessages() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()

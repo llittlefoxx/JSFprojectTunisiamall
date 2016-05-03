@@ -15,7 +15,9 @@
 					<h3>Inbox</h3>
 				</div>
 				<div class="inbox-body">
-					<a class="btn btn-compose" href="#"> Send New Message </a>
+					<button type="button" class="btn btn-compose btn-lg"
+						data-toggle="modal" data-target="#myModal">Send New
+						Message</button>
 				</div>
 				</aside>
 				<aside class="lg-side" style="height: 1200px">
@@ -78,15 +80,36 @@
 				</aside>
 			</div>
 		</div>
-		<h:form>
-			<ui:repeat var="item" value="#{chatBean.Inbox()}">
-				<h:outputText value="#{item.text}" />
-				<h:commandButton
-					action="#{chatBean.Converstation(item.sender.idUser)}"
-					value="View conversation" />
-				<br />
-			</ui:repeat>
-		</h:form>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Send New Message</h4>
+						</div>
+						<div class="modal-body">
+							<h:inputText value="#{chatBean.message.text}" />
+							<h:selectOneMenu value="#{chatBean.message.receiver.idUser}">
+								<f:selectItems value="#{chatBean.UsersList()}" var="item"
+									itemLabel="#{item.login}" itemValue="#{item.idUser}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton action="#{chatBean.doSend(chatBean.message.receiver.idUser)}" value="Send"
+								styleClass="btn btn-info" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
 		<script>
 		function checkAll(){
 			var checkAll = document.getElementById('checkbox1');
@@ -108,6 +131,7 @@
 			toDelete.value = tmp;
 		}
 		</script>
+
 	</ui:define>
 </ui:composition>
 </html>
