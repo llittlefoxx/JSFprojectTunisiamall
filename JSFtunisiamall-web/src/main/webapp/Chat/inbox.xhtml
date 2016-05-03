@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="/templates/layout.xhtml">
 	<ui:define name="title">Inbox</ui:define>
@@ -12,7 +13,6 @@
 				<aside class="sm-side">
 				<div class="m-title">
 					<h3>Inbox</h3>
-					<span>14 unread mail</span>
 				</div>
 				<div class="inbox-body">
 					<a class="btn btn-compose" href="#"> Send New Message </a>
@@ -23,19 +23,24 @@
 					<div class="mail-option">
 						<div class="pull-left all-check">
 							<label class="checkbox-custom check-success"> <input
-								type="checkbox" value="check-all" id="checkbox1" /> <label
-								for="checkbox1"> </label></label>
+								type="checkbox" value="check-all" id="checkbox1"
+								onchange="checkAll()" /> <label for="checkbox1"> </label></label>
 						</div>
 
 						<div class="btn-group">
-							<a class="btn mini tooltips" href="#" data-toggle="dropdown"
-								data-placement="top" data-original-title="Delete"> <i
-								class=" fa fa-trash"></i>
-							</a>
+							<h:form>
+								<h:commandLink action="#{chatBean.DeleteMessages()}" value=""
+									styleClass="btn mini tooltips" a:data-original-title="Delete"
+									onclick="updateToDelete()">
+									<i class=" fa fa-trash"></i>
+								</h:commandLink>
+								<input type="hidden" name="toDelete" id="toDelete" value="" />
+							</h:form>
 						</div>
 
 						<ul class="unstyled inbox-pagination">
-							<li><span>1-#{chatBean.Inbox().size()} of #{chatBean.Inbox().size()}</span></li>
+							<li><span>1-#{chatBean.Inbox().size()} of
+									#{chatBean.Inbox().size()}</span></li>
 							<li><a href="#" class="np-btn"><i
 									class="fa fa-angle-left  pagination-left"></i></a></li>
 							<li><a href="#" class="np-btn"><i
@@ -44,13 +49,14 @@
 					</div>
 					<div class="inbox-body no-pad">
 						<table class="table table-inbox table-hover">
-							<tbody>
+							<tbody id="allCheckBoxes">
 								<ui:repeat var="item" value="#{chatBean.Inbox()}">
 									<tr class="">
 										<td class="inbox-small-cells"><label
 											class="checkbox-custom check-success"> <input
-												type="checkbox" id="c#{item.idMessage}" /> <label for="c#{item.idMessage}">
-											</label></label></td>
+												type="checkbox" id="c#{item.idMessage}"
+												data-value="#{item.idMessage}" class="messageCheckbox" /> <label
+												for="c#{item.idMessage}"> </label></label></td>
 										<td class="inbox-small-cells"><h:form>
 												<h:commandLink
 													action="#{chatBean.Converstation(item.sender.idUser)}"
@@ -81,6 +87,27 @@
 				<br />
 			</ui:repeat>
 		</h:form>
+		<script>
+		function checkAll(){
+			var checkAll = document.getElementById('checkbox1');
+			var elements = document.querySelectorAll('#allCheckBoxes .messageCheckbox');
+			for(var i = 0;i &lt; elements.length ;i++){
+				elements[i].checked = checkAll.checked;
+			}
+		}
+
+		function updateToDelete(){
+			var toDelete = document.getElementById('toDelete');
+			var elements = document.querySelectorAll('#allCheckBoxes .messageCheckbox');
+			var tmp = "";
+			for(var i = 0;i &lt; elements.length ;i++){
+				if(elements[i].checked == true){
+					tmp = tmp + elements[i].getAttribute('data-value') + ';';
+				}
+			}
+			toDelete.value = tmp;
+		}
+		</script>
 	</ui:define>
 </ui:composition>
 </html>

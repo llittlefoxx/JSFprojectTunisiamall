@@ -53,7 +53,7 @@
 								<ul class="chat">
 									<ui:repeat var="item" value="#{chatBean.conversation}">
 										<h:panelGroup
-											rendered="#{item.sender.idUser != chatBean.currentIdUser}">
+											rendered="#{item.sender.idUser != chatBean.currentUserId}">
 											<li class="left clearfix"><span
 												class="chat-img pull-left"> <img style="width: 40px"
 													src="#{item.sender.pictureUrl}" alt="User Avatar"
@@ -69,7 +69,7 @@
 												</div></li>
 										</h:panelGroup>
 										<h:panelGroup
-											rendered="#{item.sender.idUser == chatBean.currentIdUser}">
+											rendered="#{item.sender.idUser == chatBean.currentUserId}">
 											<li class="right clearfix"><span
 												class="chat-img pull-right"> <img style="width: 40px"
 													src="#{item.sender.pictureUrl}" alt="User Avatar"
@@ -94,7 +94,7 @@
 											<h:inputText value="#{chatBean.message.text}"
 												styleClass="form-control" />
 											<span class="input-group-btn"> <h:commandButton
-													action="#{chatBean.SendMessage(2)}" value="Send"
+													action="#{chatBean.SendMessage()}" value="Send"
 													styleClass="btn btn-warning btn-sm" />
 											</span>
 										</div>
