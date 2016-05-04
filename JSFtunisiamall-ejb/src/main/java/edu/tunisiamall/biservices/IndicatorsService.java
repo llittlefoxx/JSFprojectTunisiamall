@@ -273,20 +273,31 @@ public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsSer
 				+ "idProduct_fk group by orderline.idProduct_fk");
 		System.out.println("step0");
 		List<Object[]> itemsList = (ArrayList<Object[]>) query.getResultList();
-		System.out.println("stap 1 sizeee : " + itemsList.size());
+		System.out.println("step 1 sizeee : " + itemsList.size());
 		double totalBenefAllProducts = 0;
 		double totalbenefProdActuel;
 		System.out.println("step2");
 		for (Object[] objects : itemsList) {
+			
+			System.out.println("net percentage "+getNetGainPercentage(Double.parseDouble(objects[3].toString()),
+					Double.parseDouble(objects[2].toString()),
+					Double.parseDouble(objects[5].toString())));
+			
+			
 			totalbenefProdActuel = getNetGainPercentage(Double.parseDouble(objects[3].toString()),
-					Double.parseDouble(objects[2].toString()), Double.parseDouble(objects[5].toString()))
+					Double.parseDouble(objects[2].toString()),
+					Double.parseDouble(objects[5].toString()))
 					* Integer.parseInt(objects[4].toString());
+			
+			System.out.println("---"+Integer.parseInt(objects[4].toString()));
 			if (objects[1] != null) {
-				System.out.println("totalbenefProdActuel *" + totalbenefProdActuel);
+				System.out.println("promotion value " + findPromotionById(Long.parseLong(objects[1].toString())).getValue());
+				
 				totalbenefProdActuel = totalbenefProdActuel - (totalbenefProdActuel
 						* (findPromotionById(Long.parseLong(objects[1].toString())).getValue()) / 100);
 				System.out.println("totalbenefProdActuel " + totalbenefProdActuel);
 			}
+			System.out.println("prod adtuel "+totalbenefProdActuel);
 			totalBenefAllProducts = totalBenefAllProducts + totalbenefProdActuel;
 
 		}
@@ -364,6 +375,6 @@ public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsSer
 		} catch (Exception e) {
 			System.out.println("erreur suppression img ou produit");
 		}
-	
+
 	}
 }

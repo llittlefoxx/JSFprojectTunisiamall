@@ -7,6 +7,78 @@
 
 <h:head></h:head> 
 <body> 
+<p:chart type="metergauge" model="#{chartBean.meterGaugeModel1}" style="width:400px;height:250px" />
+<br></br>
+
+<h:form>
+    <p:dataTable id="tbl" var="prod" value="#{expo.hotProducts}"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+ 
+        <f:facet name="{Exporters}">
+ 
+            <h:commandLink>
+                <p:graphicImage value="/resources/img/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="HOTproducts"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/resources/img/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="HOTproducts" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/resources/img/xml.png" width="24"/>
+                <p:dataExporter type="xml" target="tbl" fileName="HOTproducts" />
+            </h:commandLink>
+        </f:facet>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Libelle" />
+            </f:facet>
+            <h:outputText value="#{prod.libelle}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Category"/>
+            </f:facet>
+            <h:outputText value="#{prod.subcategory.category.libelle}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Price" />
+            </f:facet>
+            <h:outputText value="#{prod.sellPrice}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Sold QTE" />
+            </f:facet>
+            <h:outputText value="#{prod.qte}" />
+        </p:column>
+    </p:dataTable>
+ 
+    <h3>Export Page Data Only</h3>
+
+    <h:commandLink>
+        <p:graphicImage name="/resources/img/pdf.png" />
+        <p:dataExporter type="pdf" target="tbl" fileName="HOTproducts" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/resources/img/csv.png" />
+        <p:dataExporter type="csv" target="tbl" fileName="HOTproducts" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/resources/img/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="HOTproducts" pageOnly="true" />
+    </h:commandLink>
+</h:form>
 
 </body> 
 </html>

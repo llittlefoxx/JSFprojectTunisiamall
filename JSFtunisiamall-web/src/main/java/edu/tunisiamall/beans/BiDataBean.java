@@ -23,9 +23,7 @@ public class BiDataBean {
 	public  HashMap<Product, Integer> getHotProducts(){
 		return indicators.getHotProducts();
 	}
-	public double getNetGainPercentage(double buyPrice, double sellPrice, double tax){
-		return indicators.getNetGainPercentage(buyPrice, sellPrice, tax);
-	}
+
 	public Map<String, Double> getMonthlyIncome(){
 		return indicators.getMonthlyIncome();
 	}

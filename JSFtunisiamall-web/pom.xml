@@ -24,6 +24,7 @@
 			<artifactId>primefaces</artifactId>
 		</dependency>
 		
+		
 		<dependency>
 			<groupId>edu.esprit</groupId>
 			<artifactId>JSFtunisiamall-ejb</artifactId>
