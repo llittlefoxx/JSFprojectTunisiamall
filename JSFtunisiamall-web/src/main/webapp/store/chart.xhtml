@@ -4,15 +4,13 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
-<h:head></h:head> 
-<body> 
+      
+<ui:composition template="/templates/layout.xhtml">
+	<ui:define name="title">Dashboard</ui:define>
+	<ui:define name="content">
 <p:chart type="metergauge" model="#{chartBean.meterGaugeModel1}" style="width:400px;height:250px" />
 
-<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
-   
-    <p:chart type="bar" model="#{expo.animatedModel2}" style="width:400px;" />
-</h:panelGrid>
 
-</body> 
+</ui:define>
+</ui:composition>
 </html>
