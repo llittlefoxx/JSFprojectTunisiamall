@@ -1,61 +1,84 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
-<h:form>
-	<p>
-   Votre prénom :<br />
-   <h:inputText   id="prenom" value="#{authenticationBean.user.firstName}" required="true"/>
+<ui:composition template="/templates/layout.xhtml">
+	<ui:define name="title">Profile</ui:define>
+	<ui:define name="content">
+		<div class="profile-hero">
+			<div class="profile-intro">
+				<img src="#{authenticationBean.user.pictureUrl}" alt="" />
+				<h1>#{authenticationBean.user.firstName}
+					#{authenticationBean.user.lastName}</h1>
+				<span>Shopowner</span>
+			</div>
+		</div>
+		<h:form styleClass="form-signin">
+			<p>Enter your personal details below</p>
+			<h:inputText id="prenom" value="#{authenticationBean.user.firstName}"
+				required="true" requiredMessage="Please insert your First Name"
+				styleClass="form-control" a:placeholder="First Name" a:autofocus="" />
+			<p:message for="prenom" display="text" />
 
-</p>
-<p>
-   Votre nom :<br />
-   <h:inputText  id="nom" value="#{authenticationBean.user.lastName}" required="true" />
+			<h:inputText id="nom" value="#{authenticationBean.user.lastName}"
+				required="true" requiredMessage="please insert your Last Name"
+				styleClass="form-control" a:placeholder="Last Name" />
+			<p:message for="nom" display="text" />
 
-</p>
+			<h:inputText id="job" value="#{authenticationBean.user.job}"
+				required="true" requiredMessage="Do you have a job?"
+				styleClass="form-control" a:placeholder="Job" />
+			<p:message for="job" display="text" />
 
-<p>
-   Votre Job :<br />
-   <h:inputText  id="job" value="#{authenticationBean.user.job}" required="true" />
-   
-</p>
-<p>
-   Votre Adresse :<br />
-   <h:inputTextarea id="adresse" value="#{authenticationBean.user.address}" required="true" />
+			<h:inputText id="adresse" value="#{authenticationBean.user.address}"
+				required="true" requiredMessage="Do you live in the street?"
+				styleClass="form-control" a:placeholder="Address" />
+			<p:message for="adresse" display="text" />
 
-</p>
-<p>
-   Votre phone :<br />
-   <h:inputText  id="phone" value="#{authenticationBean.user.phone}" required="true" />
-	
-</p>
- <p>
- 
-   Votre Mail :<br />
-   <h:inputText id="mail" value="#{authenticationBean.user.mail}" required="true" />
- 
-</p>
- <p>
-   Votre Login :<br />
-   <h:inputText id="login" value="#{authenticationBean.user.login}" required="true" />
-  
-</p>
-<p>
-   Votre mot de passe :<br />
-   <h:inputSecret name="passe" value="#{authenticationBean.user.password}" />
- 
-</p>
-<p>
-   Confirmer Votre mot de passe :<br />
-   <h:inputSecret value="cpass"  id="cpass"/>
-  
-</p>
-<h:commandButton  action="#{userBean.updateUser(authenticationBean.user)}" value="Save"  />
-<h:commandButton  action="#{authenticationBean.desactiverUser()}" value="Desactiver"  />
-</h:form>
-</body> 
+			<h:inputText id="phone" value="#{authenticationBean.user.phone}"
+				required="true" requiredMessage="Do it for me wl almost done"
+				styleClass="form-control" a:placeholder="Phone number" />
+			<p:message for="phone" />
+
+			<h:inputText id="mail" value="#{authenticationBean.user.mail}"
+				required="true" requiredMessage="serseriously we are in 2016 !"
+				validatorMessage="Invalid input" styleClass="form-control"
+				a:placeholder="Mail">
+				<f:validateRegex pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></f:validateRegex>
+			</h:inputText>
+			<p:message for="mail" />
+
+			<h:inputText id="login" value="#{authenticationBean.user.login}"
+				required="true" requiredMessage="comm on" styleClass="form-control"
+				a:placeholder="Username" />
+			<p:message for="login" display="text" />
+
+			<h:inputSecret id="passe" value="#{authenticationBean.user.password}"
+				required="true"
+				requiredMessage="im not looking and it should above 8 caracter"
+				styleClass="form-control" a:placeholder="Password"
+				validatorMessage="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+				<f:validateRegex pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></f:validateRegex>
+			</h:inputSecret>
+			<p:message for="passe" />
+
+			<h:inputSecret value="cpass" required="true" id="cpass"
+				requiredMessage="you just need to type it again"
+				styleClass="form-control" a:placeholder="Confirm password" />
+			<p:message for="cpass" severity="warn" />
+
+			<h:commandButton
+				action="#{userBean.updateUser(authenticationBean.user)}"
+				value="Save" styleClass="btn btn-lg btn-success btn-block" />
+			<h:commandButton action="#{authenticationBean.desactiverUser()}"
+				value="Desactiver" styleClass="btn btn-lg btn-danger btn-block" />
+		</h:form>
+		<br/>
+		<br/>
+	</ui:define>
+</ui:composition>
 </html>
