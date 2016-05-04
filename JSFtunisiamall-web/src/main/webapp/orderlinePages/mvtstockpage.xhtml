@@ -1,0 +1,130 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<head>
+
+
+  
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+<h:outputStylesheet  library="css" name="application.css" />
+	<link rel="shortcut icon" type="image/x-con" href="#{request.contextPath}/resources/img/favicon.ico" />
+	</head>
+	
+
+	<div>
+
+		<h2 align="center">My Movement Stock</h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<p:dataTable  border="2" value="#{mvtStockBean.mvtstocks}" var="mv">
+
+				
+				<p:column filterBy="#{mv.product.libelle}">
+					<f:facet name="header">
+						PRODUCT
+					</f:facet>
+					<h:outputText  value="#{mv.product.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						NATURE
+					</f:facet>
+					<h:outputText value="#{mv.nature}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						DESCRIPTION
+					</f:facet>
+					<h:outputText value="#{mv.description}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						DATE
+					</f:facet>
+					<h:outputText value="#{mv.date}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						QUANTITY
+					</f:facet>
+					<h:outputText value="#{mv.qte}" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+		</h:form>
+	</div>
+
+
+
+	<div  style="float: left">
+
+		<h2 align="center">Movement Stock By Product</h2>
+
+		<h:form>
+
+
+			<p:growl autoUpdate="true" />
+
+			<h:dataTable class="table table-striped" border="2"
+				value="#{mvtStockBean.mvtstocksProd}" var="mv">
+
+				
+				<p:column filterBy="#{mv.product.libelle}">
+					<f:facet name="header">
+						PRODUCT
+					</f:facet>
+					<h:outputText value="#{mv.product.libelle}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						NATURE
+					</f:facet>
+					<h:outputText value="#{mv.nature}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						DESCRIPTION
+					</f:facet>
+					<h:outputText value="#{mv.description}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						DATE
+					</f:facet>
+					<h:outputText value="#{mv.date}" />
+				</p:column>
+				<p:column filterBy="#{mv.qte}">
+					<f:facet name="header">
+						QUANTITY
+					</f:facet>
+					<h:outputText value="#{mv.qte}" />
+				</p:column>
+
+
+			</h:dataTable>
+
+
+		</h:form>
+	</div>
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+</ui:composition>

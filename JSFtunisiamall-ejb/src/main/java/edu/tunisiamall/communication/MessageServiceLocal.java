@@ -9,8 +9,9 @@ import edu.tunisiamall.entities.User;
 
 @Local
 public interface MessageServiceLocal {
-	public List<Message> getMessagesFromTo(User src, User dest);
-	public List<Message> getMessagesFor(User u);
-	public Message sendMessage(User src, User dest, String text);
-	public boolean deleteMessage(int id);
+	public List<Message> getMessagesFromTo(int idSrc, int idDest);
+	public List<Message> getMessagesFor(int idUser);
+	public void sendMessage(int idSrc, int idDest, String text);
+	public void deleteMessage(int id);
+	public void deleteConversation(int id);
 }

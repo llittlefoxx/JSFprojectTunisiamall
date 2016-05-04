@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/templates/layout.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel">
+						<header class="panel-heading head-border"> List Events </header>
+
+						<h:dataTable value="#{eventsBeans.events}" var="event"
+							styleClass="table table-striped custom-table table-hover">
+							<h:column>
+								<f:facet name="header">
+									<i class="fa fa-bookmark-o"></i> Event Title</f:facet>
+								<a href="#"><h:outputLabel value="#{event.titleEvent}" /></a>
+							</h:column>
+							<h:column headerClass="hidden-xs">
+								<f:facet name="header">
+									<i class="fa fa-building-o"></i> Descrition</f:facet>
+								<h:outputText value="#{fn:substring(event.description,0,50)}"
+									styleClass="hidden-xs" escape="false" />
+								<a href="#">[...]</a>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<i class="fa fa-bar-chart-o"></i> Event Type</f:facet>
+								<h:outputLabel value="#{event.typeEvent}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<i class="fa fa-line-chart"></i> Event Date</f:facet>
+								<h:outputLabel value="#{event.dateEvent}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<i class=" fa fa-edit"></i> status</f:facet>
+								<h:outputText value="Terminer"
+									rendered="#{eventsBeans.dateNow gt event.dateEvent }"
+									styleClass="label label-danger label-mini" />
+								<h:outputText value="En cours"
+									rendered="#{eventsBeans.dateNow le event.dateEvent }"
+									styleClass="label label-success label-mini" />
+
+							</h:column>
+							<h:column headerClass="hidden-xs">
+								<f:facet name="header">
+									<i class="fa fa-cogs"></i> Action</f:facet>
+
+								<button class="btn btn-warning btn-xs">
+									<i class="fa fa-pencil"></i>
+								</button>
+								<h:commandLink
+									action="#{eventsBeans.deleteEvent(event.idEvent)}"
+									styleClass="btn btn-danger btn-xs">
+									<i class="fa fa-trash-o "></i>
+								</h:commandLink>
+							</h:column>
+						</h:dataTable>
+					</section>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,8 +1,16 @@
 package edu.tunisiamall.OrderlineServices;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -39,6 +47,8 @@ public class OrderLineServices implements OrderLineServicesRemote, OrderLineServ
         // TODO Auto-generated constructor stub
     }
 
+    
+    
 	@Override
 	public List<OrderLine> allOrderLineByStore(int idStore) {
 		System.out.println("hhhhh 1111");
@@ -53,12 +63,33 @@ public class OrderLineServices implements OrderLineServicesRemote, OrderLineServ
 	public List<OrderLine> findOrderLineBydate(int idStore, Date date) {
 		List<OrderLine> listdate = new ArrayList<OrderLine>();
 		List<OrderLine> listdate2 = new ArrayList<OrderLine>();
+		Calendar cal2 = Calendar.getInstance(); 
+		 int year ;
+		    int month ;
+		    int day ;
+		
+		cal2.setTime(date);
+		    int year2 = cal2.get(Calendar.YEAR);
+		    int month2 = cal2.get(Calendar.MONTH);
+		    int day2 = cal2.get(Calendar.DAY_OF_MONTH);
+		   
 		Store st= storelocal.findStoreById(idStore);
-		Query query = em.createQuery("select ol from OrderLine ol where ol.store=:id").setParameter("id", st);
+		Query query = em.createQuery("select ol from OrderLine ol where ol.product.store=:id").setParameter("id", st);
 		listdate = query.getResultList();
 		for(OrderLine ol : listdate)
 		{
-			if(ol.getOrder().getDate()==date)
+			
+			
+			 Date date2 = ol.getOrder().getDate();
+			    Calendar cal = Calendar.getInstance();
+			   
+			    cal.setTime(date2);
+			    	year = cal.get(Calendar.YEAR);
+			    	month = cal.get(Calendar.MONTH);
+			    	day = cal.get(Calendar.DAY_OF_MONTH);
+			    
+			   
+			if(year == year2 && day==day2 && month == month2)
 			{
 				listdate2.add(ol);
 			}
@@ -78,16 +109,33 @@ public class OrderLineServices implements OrderLineServicesRemote, OrderLineServ
 	
 	
 	@Override
-	public List<Product> getAllProductfromOrder(int idStore) {
-		
-		List<OrderLine> list1 = new ArrayList<>();
-		List<Product> list2 = new ArrayList<>();
-		list1 = allOrderLineByStore(idStore);
-		for(OrderLine ol : list1)
-		{
-			list2.add(ol.getProduct());
+	public List<Object[]> getAllProductfromOrder(int idStore) {
+
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		Date today = new Date();
+
+		Date todayWithZeroTime=null;
+		try {
+			todayWithZeroTime = formatter.parse(formatter.format(today));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return list2;
+	
+		    	
+		Store st= storelocal.findStoreById(idStore);
+		List<Object[]> results = em.createQuery("SELECT ol.product, sum(ol.qte) from OrderLine ol where ol.product.store=:id and ol.order.date > current_date() or ol.order.date = current_date() GROUP BY ol.product ")
+				.setParameter("id", st)
+		        .getResultList();
+		for (Object[] result : results) {
+		    Product p = (Product) result[0];
+		    System.out.println("pppp "+p.getLibelle());
+		    int count = ((Number) result[1]).intValue();
+		    System.out.println("qttttt "+count);
+		}
+		
+		return results;
 	}
 
 	@Override
@@ -113,6 +161,15 @@ public class OrderLineServices implements OrderLineServicesRemote, OrderLineServ
 	@Override
 	public OrderLine findOrdeline(int idOrderLine) {
 		return em.find(OrderLine.class, idOrderLine);
+	}
+
+	@Override
+	public List<OrderLine> triOrderLineBydate(int idStore) {
+ 
+		Store st= storelocal.findStoreById(idStore);
+		Query query = em.createQuery("select ol from OrderLine ol where ol.product.store=:id order by ol.order.date desc").setParameter("id", st);
+		return query.getResultList();
+	
 	}
 
 

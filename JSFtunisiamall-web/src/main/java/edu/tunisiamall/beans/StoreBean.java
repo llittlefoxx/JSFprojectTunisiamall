@@ -54,8 +54,7 @@ public class StoreBean {
 		return redirectTo;
 	}
 
-	public List<String[]> initLayout(int idStore) {
-		this.store = storeEJB.findStoreById(idStore);
+	public List<String[]> initLayout() {
 		List<String[]> list = new ArrayList<String[]>();
 		for (int i = 0; i < 9; i++) {
 			String[] array = new String[3];
@@ -89,6 +88,12 @@ public class StoreBean {
 		String layout = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("layout");
 		store.setLayout(layout);
 		storeEJB.updateStoreDetails(store);
+	}
+	
+	public String goToEditLayout(int idStore){
+		String redirectTo = "layout?faces-redirect=true";
+		store = storeEJB.findStoreById(idStore);
+		return redirectTo;
 	}
 
 	public List<Store> getStoresList() {

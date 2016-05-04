@@ -3,35 +3,42 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+
 <ui:composition template="/templates/layout.xhtml">
-	<ui:define name="title">Edit Store</ui:define>
+	<ui:define name="title">Create Sub-Category</ui:define>
 	<ui:define name="content">
 		<div class="page-head">
-			<h3 class="m-b-less">Update Store</h3>
+			<h3 class="m-b-less">Create Sub-Category</h3>
 		</div>
 		<div class="wrapper">
 			<div class="row">
 				<div class="col-lg-12">
 					<section class="panel"> <header class="panel-heading">
-					Store Details </header>
+					Sub-Category Details </header>
 					<div class="panel-body">
 						<h:form>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Name</label>
-								<h:inputText value="#{storeBean.store.name}"
+								<label for="exampleInputEmail1">Label</label>
+								<h:inputText value="#{subCategoriesBean.subcategory.libelle}"
 									styleClass="form-control" />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Description</label>
-								<h:inputTextarea value="#{storeBean.store.description}"
+								<h:inputTextarea
+									value="#{subCategoriesBean.subcategory.description}"
 									styleClass="form-control" />
 							</div>
+							<h:outputLabel value="List of Categories" />
 							<div class="form-group">
-								<label for="exampleInputEmail1">Phone number</label>
-								<h:inputText value="#{storeBean.store.tel}"
-									styleClass="form-control" />
+								<h:selectOneMenu
+									value="#{subCategoriesBean.subcategory.category.idCategory}"
+									styleClass="form-control">
+									<f:selectItems value="#{subCategoriesBean.ListCategories()}"
+										var="item" itemLabel="#{item.libelle}"
+										itemValue="#{item.idCategory}" />
+								</h:selectOneMenu>
 							</div>
-							<h:commandButton action="#{storeBean.updateStore()}"
+							<h:commandButton action="#{subCategoriesBean.doAdd()}"
 								value="Submit" styleClass="btn btn-info" />
 						</h:form>
 					</div>
