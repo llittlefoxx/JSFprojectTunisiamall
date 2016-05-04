@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+<h:form>
+	<p>
+   Votre prénom :<br />
+   <h:inputText   id="prenom" value="#{userBean.customer.firstName}" required="true"/>
+
+</p>
+<p>
+   Votre nom :<br />
+   <h:inputText  id="nom" value="#{userBean.customer.lastName}" required="true" />
+
+</p>
+
+<p>
+   Votre Job :<br />
+   <h:inputText  id="job" value="#{userBean.customer.job}" required="true" />
+   
+</p>
+<p>
+   Votre Adresse :<br />
+   <h:inputTextarea id="adresse" value="#{userBean.customer.address}" required="true" />
+
+</p>
+<p>
+   Votre phone :<br />
+   <h:inputText  id="phone" value="#{userBean.customer.phone}" required="true" />
+	
+</p>
+ <p>
+ 
+   Votre Mail :<br />
+   <h:inputText id="mail" value="#{userBean.customer.mail}" required="true" />
+ 
+</p>
+ <p>
+   Votre Login :<br />
+   <h:inputText id="login" value="#{userBean.customer.login}" required="true" />
+  
+</p>
+<p>
+   Votre mot de passe :<br />
+   <h:inputSecret name="passe" value="#{userBean.customer.password}" required="true"/>
+ 
+</p>
+<p>
+   Confirmer Votre mot de passe :<br />
+   <h:inputSecret value="cpass" required="true" id="cpass"/>
+  
+</p>
+<h:commandButton  action="#{userBean.updateUser()}" value="Save"  />
+</h:form>
+</body> 
+</html>
