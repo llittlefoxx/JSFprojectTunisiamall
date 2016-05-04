@@ -28,11 +28,11 @@ public class UserBean {
 
 	}
 
-	public void addUser() {
-
+	public String addUser() {
+		String redirectTo = "/home/index?faces-redirection=true";
 		Uservice.create(customer);
 		System.out.println(customer.getLogin());
-
+		return redirectTo;
 	}
 
 	public void updateUser(Shopowner cus) {

@@ -1,72 +1,131 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<h:head></h:head> 
-<body> 
-<h:form>
-	<p>
-   Votre prénom :<br />
-   <h:inputText   id="prenom" value="#{userBean.customer.firstName}" required="true" requiredMessage="Please insert your First Name"/>
-   <p:message for="prenom" display="text" />
-</p>
-<p>
-   Votre nom :<br />
-   <h:inputText  id="nom" value="#{userBean.customer.lastName}" required="true" requiredMessage="please insert your Last Name" />
-   <p:message for="nom" display="text" />
-</p>
-<p>
-<h:selectOneRadio value="#{userBean.customer.gender}" required="true" id="gender" requiredMessage="How you are ?">
-			<f:selectItem itemLabel="Mdm" itemValue="Female" />
-            <f:selectItem itemLabel="Mr" itemValue="Male" />
-            
-</h:selectOneRadio>
-<p:message for="gender"/>
-</p>
-<p>
-   Votre Job :<br />
-   <h:inputText  id="job" value="#{userBean.customer.job}" required="true" requiredMessage="Do you have a job?"/>
-   <p:message for="job" display="text" />
-</p>
-<p>
-   Votre Adresse :<br />
-   <h:inputTextarea id="adresse" value="#{userBean.customer.address}" required="true" requiredMessage="Do you live in the street?"/>
-<p:message for="adresse" display="text" />
-</p>
-<p>
-   Votre phone :<br />
-   <h:inputText  id="phone" value="#{userBean.customer.phone}" required="true" requiredMessage="Do it for me wl almost done"/>
-	<p:message for="phone"/>
-</p>
- <p>
- 
-   Votre Mail :<br />
-   <h:inputText id="mail" value="#{userBean.customer.mail}" required="true" requiredMessage="serseriously we are in 2016 !" validatorMessage="Invalid input" >
-   <f:validateRegex pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></f:validateRegex>
-   </h:inputText>
-   <p:message for="mail" />
-</p>
- <p>
-   Votre Login :<br />
-   <h:inputText id="login" value="#{userBean.customer.login}" required="true" requiredMessage="comm on"/>
-   <p:message for="login" display="text" />
-</p>
-<p>
-   Votre mot de passe :<br />
-   <h:inputSecret id="passe" value="#{userBean.customer.password}" required="true" requiredMessage="im not looking and it should above 8 caracter" validatorMessage="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
-   <f:validateRegex pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></f:validateRegex>
-   </h:inputSecret>
-   <p:message for="passe" />
-</p>
-<p>
-   Confirmer Votre mot de passe :<br />
-   <h:inputSecret value="cpass" required="true" id="cpass" requiredMessage="you just need to type it again"/>
-   <p:message for="cpass" severity="warn"/>
-</p>
-<h:commandButton  action="#{userBean.addUser()}" value="Sign Up"  />
-</h:form>
-</body> 
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Admin Template" />
+<meta name="keywords"
+	content="admin dashboard, admin, flat, flat ui, ui kit, app, web app, responsive" />
+<link rel="shortcut icon" href="../resources/img/ico/favicon.png" />
+<title>Tunisia Mall - Registration</title>
+<!-- Base Styles -->
+<link href="../resources/css/style.css" rel="stylesheet" />
+<link href="../resources/css/style-responsive.css" rel="stylesheet" />
+<style>
+.ui-message-error {
+	color: #a94442;
+	background-color: #f2dede;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+</style>
+</head>
+
+<body class="login-body">
+
+	<div class="login-logo">
+		<img src="../resources/img/logo-white.png" alt="" />
+	</div>
+
+	<h2 class="form-heading">Registration</h2>
+	<div class="container log-row">
+		<h:form styleClass="form-signin">
+			<p>Enter your personal details below</p>
+			<h:inputText id="prenom" value="#{userBean.customer.firstName}"
+				required="true" requiredMessage="Please insert your First Name"
+				styleClass="form-control" a:placeholder="First Name" a:autofocus="" />
+			<p:message for="prenom" display="text" />
+
+			<h:inputText id="nom" value="#{userBean.customer.lastName}"
+				required="true" requiredMessage="please insert your Last Name"
+				styleClass="form-control" a:placeholder="Last Name" />
+			<p:message for="nom" display="text" />
+
+			<h:selectOneRadio value="#{userBean.customer.gender}" required="true"
+				id="gender" requiredMessage="How you are ?">
+				<f:selectItem itemLabel="Mdm" itemValue="Female" />
+				<f:selectItem itemLabel="Mr" itemValue="Male" />
+
+			</h:selectOneRadio>
+			<p:message for="gender" />
+
+			<h:inputText id="job" value="#{userBean.customer.job}"
+				required="true" requiredMessage="Do you have a job?"
+				styleClass="form-control" a:placeholder="Job" />
+			<p:message for="job" display="text" />
+
+			<h:inputText id="adresse" value="#{userBean.customer.address}"
+				required="true" requiredMessage="Do you live in the street?"
+				styleClass="form-control" a:placeholder="Address" />
+			<p:message for="adresse" display="text" />
+
+			<h:inputText id="phone" value="#{userBean.customer.phone}"
+				required="true" requiredMessage="Do it for me wl almost done"
+				styleClass="form-control" a:placeholder="Phone number" />
+			<p:message for="phone" />
+
+			<h:inputText id="mail" value="#{userBean.customer.mail}"
+				required="true" requiredMessage="serseriously we are in 2016 !"
+				validatorMessage="Invalid input" styleClass="form-control"
+				a:placeholder="Mail">
+				<f:validateRegex pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></f:validateRegex>
+			</h:inputText>
+			<p:message for="mail" />
+
+			<h:inputText id="login" value="#{userBean.customer.login}"
+				required="true" requiredMessage="comm on" styleClass="form-control"
+				a:placeholder="Username" />
+			<p:message for="login" display="text" />
+
+			<h:inputSecret id="passe" value="#{userBean.customer.password}"
+				required="true"
+				requiredMessage="im not looking and it should above 8 caracter"
+				styleClass="form-control" a:placeholder="Password"
+				validatorMessage="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+				<f:validateRegex pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></f:validateRegex>
+			</h:inputSecret>
+			<p:message for="passe" />
+
+			<h:inputSecret value="cpass" required="true" id="cpass"
+				requiredMessage="you just need to type it again"
+				styleClass="form-control" a:placeholder="Confirm password" />
+			<p:message for="cpass" severity="warn" />
+
+			<h:commandButton action="#{userBean.addUser()}" value="Sign Up"
+				styleClass="btn btn-lg btn-success btn-block" />
+
+			<!-- 
+			<input type="text" class="form-control" placeholder="Full Name"
+				autofocus> <input type="text" class="form-control"
+				placeholder="Address" autofocus> <input type="text"
+					class="form-control" placeholder="Email" autofocus> <input
+						type="text" class="form-control" placeholder="City/Town" autofocus>
+							<div class="radio-custom radio-success">
+								<input type="radio" value="yes" checked="checked"
+									name="option-yes" id="male"> <label for="male">Male</label>
+									<input type="radio" value="no" name="option-yes" id="female">
+										<label for="female">Female</label>
+							</div>
+
+							<p>Enter your account details below</p> <input type="text"
+							class="form-control" placeholder="User Name" autofocus> <input
+								type="password" class="form-control" placeholder="Password">
+									<input type="password" class="form-control"
+									placeholder="Re-type Password">
+			<button class="btn btn-lg btn-success btn-block" type="submit">Submit</button> -->
+		</h:form>
+	</div>
+
+	<!--jquery-1.10.2.min-->
+	<script src="../resources/js/jquery-1.11.1.min.js"></script>
+	<!--Bootstrap Js-->
+	<script src="../resources/js/bootstrap.min.js"></script>
+
+</body>
 </html>
