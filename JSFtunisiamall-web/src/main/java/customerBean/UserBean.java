@@ -8,8 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 
-import edu.tunisiamall.customerServices.customerServicesLocal;
-import edu.tunisiamall.entities.Customer;
+
+import edu.tunisiamall.entities.Shopowner;
+import edu.tunisiamall.shopOwnerServices.shopOwnerServiceLocal;
 
 
 @ManagedBean
@@ -17,8 +18,9 @@ import edu.tunisiamall.entities.Customer;
 public class UserBean {
 
 	@EJB
-	customerServicesLocal Uservice;
-	Customer customer ;	
+	shopOwnerServiceLocal Uservice;
+	Shopowner customer ;	
+	AuthenticationBean bean =new AuthenticationBean();
 	
 	public UserBean() {
 		
@@ -27,9 +29,8 @@ public class UserBean {
 	public void init() {
 		
 		
-		customer=new Customer();
-		customer.setLogin("test");
-		customer.setPassword("test");
+		customer=new Shopowner();
+		
 	
 	}
 	
@@ -39,21 +40,17 @@ public class UserBean {
 		System.out.println(customer.getLogin());
 		
 	}
-	public void updateUser(Customer cus){
+	public void updateUser(Shopowner cus){
 		
-		Uservice.updateCustomer(cus);
+		Uservice.updateShopeOwner(cus);
 		
 	}
-	public customerServicesLocal getUservice() {
-		return Uservice;
-	}
-	public void setUservice(customerServicesLocal uservice) {
-		Uservice = uservice;
-	}
-	public Customer getCustomer() {
+	
+	
+	public Shopowner getCustomer() {
 		return customer;
 	}
-	public void setCustomer(Customer customer) {
+	public void setCustomer(Shopowner customer) {
 		this.customer = customer;
 	}
 	

@@ -55,12 +55,12 @@ public class LoginFilter implements Filter {
 
 		} else {
 
-			if (reqURI.contains("customer") && !loginBean.getUserType().equalsIgnoreCase("customer")) {
+			if (reqURI.contains("Profile") && !loginBean.getUserType().equalsIgnoreCase("shopowenr")) {
 				
 				resp.sendError(403);
 				loginBean.setLoggedIn(false);
 				
-			} else if (reqURI.contains("admin") && !loginBean.getUserType().equalsIgnoreCase("shopowenr")) {
+			} else if (reqURI.contains("customer") && !loginBean.getUserType().equalsIgnoreCase("customer")) {
 				
 				resp.sendError(403);
 				loginBean.setLoggedIn(false);
