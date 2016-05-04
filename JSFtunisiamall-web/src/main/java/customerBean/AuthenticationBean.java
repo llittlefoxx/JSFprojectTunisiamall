@@ -40,7 +40,7 @@ public class AuthenticationBean {
 		if (null == user) {
 			loggedIn = false;
 			user = new User();
-			
+
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "WRONG CREDENTIALS!",
 					"LOGIN OR PASSWORD ARE NOT VALID!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -49,11 +49,11 @@ public class AuthenticationBean {
 			loggedIn = true;
 
 			HttpSession session = SessionBean.getSession();
-            session.setAttribute("username", user);
-            
+			session.setAttribute("username", user);
+
 			if (user instanceof Shopowner) {
 
-				navigateTo = "home/index?faces-redirect=true";
+				navigateTo = "/home/index?faces-redirect=true";
 				userType = "admin";
 
 			} else if (user instanceof Customer) {
@@ -69,8 +69,8 @@ public class AuthenticationBean {
 		loggedIn = false;
 		user = new User();
 		HttpSession session = SessionBean.getSession();
-        session.invalidate();
-		return "/Authentification?faces-redirect=true";
+		session.invalidate();
+		return "/customer/Authentification?faces-redirect=true";
 	}
 
 	public User getUser() {
@@ -95,6 +95,11 @@ public class AuthenticationBean {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+
+	public String desactiverUser() {
+		service.delete(user.getIdUser());
+		return "/customer/Authentification?faces-redirect=true";
 	}
 
 }

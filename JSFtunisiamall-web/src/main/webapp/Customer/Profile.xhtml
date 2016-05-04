@@ -54,7 +54,7 @@
    <h:inputSecret value="cpass"  id="cpass"/>
   
 </p>
-<h:commandButton  action="#{userBean.updateUser()}" value="Save"  />
+<h:commandButton  action="#{userBean.updateUser(authenticationBean.user)}" value="Save"  />
 <h:commandButton  action="#{authenticationBean.desactiverUser()}" value="Desactiver"  />
 </h:form>
 </body> 

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="/templates/layout.xhtml">
 	<ui:define name="title">Store Layout</ui:define>
@@ -11,27 +12,55 @@
 		<div class="wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<div id="sortable">
-						<ui:repeat var="item" value="#{storeBean.initLayout()}">
-							<section class="panel" layoutType="#{item[0]}">
-							<div class="panel-heading head-border">
-								<h2 class="panel-title pull-left">
-									<i class="fa fa-arrows-v fa-2x"></i> #{item[1]}
-								</h2>
-								<div class="pull-right">
-									<input id="check#{item[0]}" type="checkbox"
-										data-value="#{item[2]}" class="js-switch-small-green" />
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-body w-setting"></div>
-							</section>
-						</ui:repeat>
-					</div>
 					<h:form>
+						<div id="sortable">
+							<ui:repeat var="item" value="#{storeBean.initLayout()}">
+								<section class="panel" layoutType="#{item[0]}">
+								<div class="panel-heading head-border">
+									<h2 class="panel-title pull-left">
+										<i class="fa fa-arrows-v fa-2x"></i> #{item[1]}
+									</h2>
+									<div class="pull-right">
+										<input id="check#{item[0]}" type="checkbox"
+											data-value="#{item[2]}" class="js-switch-small-green" />
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-body w-setting">
+									<h:panelGroup rendered="#{item[0] == '6'}">
+										<div class="form-group">
+											<label class="col-lg-3 col-sm-3 control-label">Image</label>
+											<div class="col-lg-9">
+												<div class="iconic-input">
+													<i class="fa fa-picture-o"></i>
+													<h:inputText value="#{storeBean.store.imageURI}"
+														styleClass="form-control" a:placeholder="Image URI" />
+												</div>
+											</div>
+										</div>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{item[0] == '7'}">
+										<div class="form-group">
+											<label class="col-lg-3 col-sm-3 control-label">Video</label>
+											<div class="col-lg-9">
+												<div class="iconic-input">
+													<i class="fa fa-video-camera"></i>
+													<h:inputText value="#{storeBean.store.videoURI}"
+														styleClass="form-control" a:placeholder="Video URI" />
+												</div>
+											</div>
+										</div>
+									</h:panelGroup>
+								</div>
+								</section>
+							</ui:repeat>
+						</div>
 						<input id="layoutInput" name="layout" type="hidden" value="" />
 						<h:commandLink action="#{storeBean.editLayout()}" value="Save"
-							onclick="getLayout()" styleClass="btn btn-lg btn-default addon-btn m-b-10"><i class="fa fa-cog"></i></h:commandLink>
+							onclick="getLayout()"
+							styleClass="btn btn-lg btn-default addon-btn m-b-10">
+							<i class="fa fa-cog"></i>
+						</h:commandLink>
 					</h:form>
 				</div>
 			</div>
