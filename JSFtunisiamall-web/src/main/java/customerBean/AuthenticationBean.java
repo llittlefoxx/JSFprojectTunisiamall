@@ -6,6 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import edu.tunisiamall.entities.Customer;
 import edu.tunisiamall.entities.Shopowner;
@@ -21,13 +22,15 @@ public class AuthenticationBean {
 	private User user;
 	private boolean loggedIn = false;
 	private String userType;
+
 	public AuthenticationBean() {
 	}
+
 	@PostConstruct
 	public void init() {
-		
 		user = new User();
 	}
+
 	public String connect() {
 
 		String navigateTo = "";
@@ -35,7 +38,9 @@ public class AuthenticationBean {
 		user = service.authentificate(user.getLogin(), user.getPassword());
 
 		if (null == user) {
-
+			loggedIn = false;
+			user = new User();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "WRONG CREDENTIALS!",
 					"LOGIN OR PASSWORD ARE NOT VALID!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -43,43 +48,53 @@ public class AuthenticationBean {
 		} else {
 			loggedIn = true;
 
+			HttpSession session = SessionBean.getSession();
+            session.setAttribute("username", user);
+            
 			if (user instanceof Shopowner) {
 
-				navigateTo = "/pages/admin/home";
+				navigateTo = "home/index?faces-redirect=true";
 				userType = "admin";
-				
+
 			} else if (user instanceof Customer) {
-				
+
 				navigateTo = "/pages/customer/home";
 				userType = "customer";
 			}
 		}
 		return navigateTo;
 	}
-	
-	public String logout() {
 
+	public String logout() {
 		loggedIn = false;
 		user = new User();
-		return "/home";
+		HttpSession session = SessionBean.getSession();
+        session.invalidate();
+		return "/Authentification?faces-redirect=true";
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}
+
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
+
 	public String getUserType() {
 		return userType;
 	}
+
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
+
 }

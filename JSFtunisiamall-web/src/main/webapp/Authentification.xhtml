@@ -1,21 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Admin Template" />
+<meta name="keywords"
+	content="admin dashboard, admin, flat, flat ui, ui kit, app, web app, responsive" />
+<link rel="shortcut icon" href="resources/img/ico/favicon.png" />
+<title>Tunisia Mall - Login</title>
 
-<h:form>
-<p>
-LOGIN:<br/>
-<h:inputText value="#{authenticationBean.user.login}" id="login" required="true"/>
-</p>
-<p>
-PASSWORD:<br/>
+<!-- Base Styles -->
+<link href="resources/css/style.css" rel="stylesheet" />
+<link href="resources/css/style-responsive.css" rel="stylesheet" />
+</head>
 
-<h:inputSecret value="#{authenticationBean.user.password}" required="true" id="pwd"/>
-</p>
-<h:commandButton action="#{authenticationBean.connect()}" value="Submit"/>
-</h:form>
- 
+<body class="login-body">
+
+	<div class="login-logo">
+		<img src="resources/img/logo-white.png" alt="" />
+	</div>
+
+	<h2 class="form-heading">login</h2>
+	<div class="container log-row">
+		<h:form styleClass="form-signin">
+			<div class="login-wrap">
+				<h:inputText value="#{authenticationBean.user.login}" id="login"
+					required="true" styleClass="form-control" a:placeholder="Username"
+					a:autofocus="" />
+				<h:inputSecret value="#{authenticationBean.user.password}"
+					required="true" id="pwd" styleClass="form-control"
+					a:placeholder="Password" />
+				<h:commandButton action="#{authenticationBean.connect()}"
+					value="Login" styleClass="btn btn-lg btn-success btn-block"/>
+				<div class="registration">
+					Don't have an account yet? <a class="" href="Inscription.jsf">
+						Create an account </a>
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+	<!--jquery-1.10.2.min-->
+	<script src="resources/js/jquery-1.11.1.min.js"></script>
+	<!--Bootstrap Js-->
+	<script src="resources/js/bootstrap.min.js"></script>
+</body>
 </html>
