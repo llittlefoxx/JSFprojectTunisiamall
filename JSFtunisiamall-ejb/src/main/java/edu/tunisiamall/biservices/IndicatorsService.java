@@ -22,6 +22,7 @@ import edu.tunisiamall.entities.Product;
 import edu.tunisiamall.entities.Promotion;
 import edu.tunisiamall.entities.PromotionSuggest;
 import edu.tunisiamall.entities.Store;
+import edu.tunisiamall.util.Stat;
 
 /**
  * Session Bean implementation class IndicatorsService
@@ -75,9 +76,15 @@ public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsSer
 	}
 
 	@Override
-	public Map<String, Double> getMonthlyIncome() {
-
-		return null;
+	public List<Stat> getMonthlyIncome() {
+        Query query=em.createQuery("select NEW edu.tunisiamall.util.Stat(MONTH(o.datePay),sum(o.amountPayed)) from Order o group by MONTH(o.datePay)",Stat.class);
+        query.getResultList();
+		List<Stat> stat=query.getResultList();
+		for (Stat stat2 : stat) {
+			System.out.println("month"+stat2.getMonth());
+			System.out.println("val"+stat2.getVal());
+		}
+		return stat;
 	}
 
 	@Override
@@ -378,3 +385,5 @@ public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsSer
 
 	}
 }
+
+

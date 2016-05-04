@@ -13,6 +13,7 @@ import edu.tunisiamall.entities.Product;
 import edu.tunisiamall.entities.Promotion;
 import edu.tunisiamall.entities.PromotionSuggest;
 import edu.tunisiamall.entities.Store;
+import edu.tunisiamall.util.Stat;
 
 @Local
 public interface IndicatorsServiceLocal {
@@ -40,7 +41,7 @@ public interface IndicatorsServiceLocal {
 
 	public double getTotalIncome();
 
-	public Map<String, Double> getMonthlyIncome();
+	public List<Stat> getMonthlyIncome();
 
 	public Product findProductById(int id);
 

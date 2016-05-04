@@ -24,7 +24,5 @@ public class BiDataBean {
 		return indicators.getHotProducts();
 	}
 
-	public Map<String, Double> getMonthlyIncome(){
-		return indicators.getMonthlyIncome();
-	}
+	
 }
