@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -45,7 +46,6 @@ public class OrderLineBean {
 	private Product productParam;
 
 
-	
 	
 	public Product getProductParam() {
 		return productParam;
@@ -130,6 +130,7 @@ public class OrderLineBean {
 	// init
 	@PostConstruct
 	public void init() {
+		
 		orderlines = orderlineservice.allOrderLineByStore(2);
 		orderlinesRecents = orderlineservice.triOrderLineBydate(2);
 		produits = orderlineservice.getAllProductByStore(2);
