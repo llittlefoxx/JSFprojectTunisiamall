@@ -69,4 +69,15 @@ public class MessageService implements MessageServiceRemote, MessageServiceLocal
 		}
 	}
 
+	@Override
+	public void deleteConversation(int id) {
+		Message m = em.find(Message.class, id);
+		int idSender = m.getSender().getIdUser();
+		int idReceiver = m.getReceiver().getIdUser();
+		List<Message> tmp = getMessagesFromTo(idSender, idReceiver);
+		for (Message message : tmp) {
+			em.remove(em.find(Message.class, message.getIdMessage()));
+		}
+	}
+
 }

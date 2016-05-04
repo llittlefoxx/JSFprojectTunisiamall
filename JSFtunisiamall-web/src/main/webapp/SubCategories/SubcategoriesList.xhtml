@@ -3,54 +3,49 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
-<ui:composition template="/templates/DashboardTemplate.xhtml">
+<ui:composition template="/templates/layout.xhtml">
+	<ui:define name="title">Sub-Categories List</ui:define>
 	<ui:define name="content">
-		<h:form>
-			<h:dataTable value="#{subCategoriesBean.subcategories}" var="sub"
-				border="1" styleClass="table-hover">
-				<f:facet name="header">
-					<h:outputText value="List subcategories" />
-				</f:facet>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Libelle" />
-					</f:facet>
-					<h:outputText value="#{sub.libelle}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Description" />
-					</f:facet>
-					<h:outputText value="#{sub.description}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Category" />
-					</f:facet>
-					<h:outputText value="#{sub.category.libelle}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="delete" />
-					</f:facet>
-					<h:commandButton
-						action="#{subCategoriesBean.doDelete(sub.idSubCategory)}"
-						value="delete" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="update" />
-					</f:facet>
-					<h:commandLink
-						action="#{subCategoriesBean.doselect(sub.idSubCategory)}"
-						value="update" />
-				</h:column>
-
-
-			</h:dataTable>
-
-
-		</h:form>
+		<div class="page-head">
+			<h3 class="m-b-less">Sub-Categories</h3>
+		</div>
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel"> <header
+						class="panel-heading head-border"> List </header> <h:form>
+						<table class="table table-striped custom-table table-hover">
+							<thead>
+								<tr>
+									<th><i class="fa fa-bookmark-o"></i> Label</th>
+									<th><i class="fa fa-info-circle"></i> Description</th>
+									<th><i class="fa fa-tag"></i> Category</th>
+									<th><i class="fa fa-cogs"></i> Action</th>
+								</tr>
+								<ui:repeat var="sub" value="#{subCategoriesBean.subcategories}">
+									<tr>
+										<td>#{sub.libelle}</td>
+										<td>#{sub.description}</td>
+										<td>#{sub.category.libelle}</td>
+										<td><h:commandLink
+												action="#{subCategoriesBean.doselect(sub.idSubCategory)}"
+												styleClass="btn btn-primary btn-info">
+												<i class="fa fa-pencil"></i>
+											</h:commandLink>
+											&nbsp;
+											<h:commandLink
+												action="#{subCategoriesBean.doDelete(sub.idSubCategory)}"
+												styleClass="btn btn-primary btn-danger">
+												<i class="fa fa-trash-o"></i>
+											</h:commandLink></td>
+									</tr>
+								</ui:repeat>
+							</thead>
+						</table>
+					</h:form> </section>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>
 </html>

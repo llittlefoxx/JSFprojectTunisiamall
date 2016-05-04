@@ -89,6 +89,12 @@ public class StoreBean {
 		store.setLayout(layout);
 		storeEJB.updateStoreDetails(store);
 	}
+	
+	public String goToEditLayout(int idStore){
+		String redirectTo = "layout?faces-redirect=true";
+		store = storeEJB.findStoreById(idStore);
+		return redirectTo;
+	}
 
 	public List<Store> getStoresList() {
 		return storesList;

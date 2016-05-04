@@ -23,13 +23,15 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 		</dependency>
-
+		
+		
 		<dependency>
 			<groupId>edu.esprit</groupId>
 			<artifactId>JSFtunisiamall-ejb</artifactId>
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

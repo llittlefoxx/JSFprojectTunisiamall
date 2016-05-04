@@ -13,4 +13,5 @@ public interface MessageServiceLocal {
 	public List<Message> getMessagesFor(int idUser);
 	public void sendMessage(int idSrc, int idDest, String text);
 	public void deleteMessage(int id);
+	public void deleteConversation(int id);
 }

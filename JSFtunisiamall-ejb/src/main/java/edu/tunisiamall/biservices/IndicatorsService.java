@@ -22,12 +22,13 @@ import edu.tunisiamall.entities.Product;
 import edu.tunisiamall.entities.Promotion;
 import edu.tunisiamall.entities.PromotionSuggest;
 import edu.tunisiamall.entities.Store;
+import edu.tunisiamall.util.Stat;
 
 /**
  * Session Bean implementation class IndicatorsService
  */
 @Stateless
-public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServiceLocal {
+public class IndicatorsService implements IndicatorsServiceRemote, IndicatorsServiceLocal {
 
 	/**
 	 * Default constructor.
@@ -75,9 +76,15 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 	}
 
 	@Override
-	public Map<String, Double> getMonthlyIncome() {
-
-		return null;
+	public List<Stat> getMonthlyIncome() {
+        Query query=em.createQuery("select NEW edu.tunisiamall.util.Stat(MONTH(o.datePay),sum(o.amountPayed)) from Order o group by MONTH(o.datePay)",Stat.class);
+        query.getResultList();
+		List<Stat> stat=query.getResultList();
+		for (Stat stat2 : stat) {
+			System.out.println("month"+stat2.getMonth());
+			System.out.println("val"+stat2.getVal());
+		}
+		return stat;
 	}
 
 	@Override
@@ -142,8 +149,8 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 
 	@Override
 	public List<Product> getProductsByPromotionSugg(int idSugP) {
-		 Query query = em.createQuery("select p from Product p where p.promotionSuggest.idPromotionSuggest = :idSugP")
-		 .setParameter("idSugP", idSugP);
+		Query query = em.createQuery("select p from Product p where p.promotionSuggest.idPromotionSuggest = :idSugP")
+				.setParameter("idSugP", idSugP);
 		return query.getResultList();
 	}
 
@@ -273,20 +280,31 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 				+ "idProduct_fk group by orderline.idProduct_fk");
 		System.out.println("step0");
 		List<Object[]> itemsList = (ArrayList<Object[]>) query.getResultList();
-		System.out.println("stap 1 sizeee : " + itemsList.size());
+		System.out.println("step 1 sizeee : " + itemsList.size());
 		double totalBenefAllProducts = 0;
 		double totalbenefProdActuel;
 		System.out.println("step2");
 		for (Object[] objects : itemsList) {
+			
+			System.out.println("net percentage "+getNetGainPercentage(Double.parseDouble(objects[3].toString()),
+					Double.parseDouble(objects[2].toString()),
+					Double.parseDouble(objects[5].toString())));
+			
+			
 			totalbenefProdActuel = getNetGainPercentage(Double.parseDouble(objects[3].toString()),
-					Double.parseDouble(objects[2].toString()), Double.parseDouble(objects[5].toString()))
+					Double.parseDouble(objects[2].toString()),
+					Double.parseDouble(objects[5].toString()))
 					* Integer.parseInt(objects[4].toString());
+			
+			System.out.println("---"+Integer.parseInt(objects[4].toString()));
 			if (objects[1] != null) {
-				System.out.println("totalbenefProdActuel *" + totalbenefProdActuel);
+				System.out.println("promotion value " + findPromotionById(Long.parseLong(objects[1].toString())).getValue());
+				
 				totalbenefProdActuel = totalbenefProdActuel - (totalbenefProdActuel
 						* (findPromotionById(Long.parseLong(objects[1].toString())).getValue()) / 100);
 				System.out.println("totalbenefProdActuel " + totalbenefProdActuel);
 			}
+			System.out.println("prod adtuel "+totalbenefProdActuel);
 			totalBenefAllProducts = totalBenefAllProducts + totalbenefProdActuel;
 
 		}
@@ -307,21 +325,65 @@ public class IndicatorsService implements IndicatorsServiceRemote,IndicatorsServ
 	}
 
 	@Override
-	public List<Image> getImagesByProduct(int id) {
-		Query query=em.createQuery("select i from Image i where i.product.idProduct=:id").setParameter("id", id);
-		
+	public Image getImagesByProduct(int id) {
+		Query query = em.createNativeQuery("select * from image where idProduct=?", Image.class).setParameter(1, id);
+		Image img = new Image();
+		try {
+			img = (Image) query.getSingleResult();
+		} catch (Exception e) {
+			img.setImagePath("http://onlysupermarket.com/images/des.jpg");
+		}
+
+		return img;
+	}
+
+	@Override
+	public void rateProduct(AnonimousRating an) {
+		Date date = new Date();
+		an.setDate(date);
+		em.persist(an);
+	}
+
+	@Override
+	public void createPromotion(Promotion promotion) {
+		em.persist(promotion);
+
+	}
+
+	@Override
+	public List<Promotion> getAllPromotions() {
+		Query query = em.createNamedQuery("Promotion.findAll");
 		return query.getResultList();
 	}
-@Override
-public void rateProduct(AnonimousRating an){
-	Date date=new Date();
-	an.setDate(date);
-	em.persist(an);
+
+	@Override
+	public void addProduct(Product p) {
+		em.persist(p);
+
+	}
+
+	@Override
+	public void insertImage(int idProd, String path) {
+
+		Product p = findProductById(idProd);
+		Image img = new Image();
+		img.setProduct(p);
+		img.setImagePath(path);
+		em.persist(img);
+	}
+
+	@Override
+	public void deleteProd(int id) {
+		try {
+			Image img = getImagesByProduct(id);
+			em.remove(img);
+			Product p = em.find(Product.class, id);
+			em.remove(p);
+		} catch (Exception e) {
+			System.out.println("erreur suppression img ou produit");
+		}
+
+	}
 }
 
-@Override
-public void createPromotion(Promotion promotion) {
-	em.persist(promotion);
-	
-}
-}
+
