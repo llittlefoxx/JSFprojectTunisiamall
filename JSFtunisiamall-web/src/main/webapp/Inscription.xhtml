@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+<h:form>
+	<p>
+   Votre prénom :<br />
+   <h:inputText   id="prenom" value="#{userBean.customer.firstName}" required="true"/>
+   <p:message for="prenom" display="text" />
+</p>
+<p>
+   Votre nom :<br />
+   <h:inputText  id="nom" value="#{userBean.customer.lastName}" required="true" />
+   <p:message for="nom" display="text" />
+</p>
+<p>
+<h:selectOneRadio value="#{userBean.customer.gender}" required="true" id="gender">
+			<f:selectItem itemLabel="Mdm" itemValue="Female" />
+            <f:selectItem itemLabel="Mr" itemValue="Male" />
+            
+</h:selectOneRadio>
+<p:message for="gender"/>
+</p>
+<p>
+   Votre Job :<br />
+   <h:inputText  id="job" value="#{userBean.customer.job}" required="true" />
+   <p:message for="job" display="text" />
+</p>
+<p>
+   Votre Adresse :<br />
+   <h:inputTextarea id="adresse" value="#{userBean.customer.address}" required="true" />
+<p:message for="adresse" display="text" />
+</p>
+<p>
+   Votre phone :<br />
+   <h:inputText  id="phone" value="#{userBean.customer.phone}" required="true" />
+	<p:message for="phone"/>
+</p>
+ <p>
+ 
+   Votre Mail :<br />
+   <h:inputText id="mail" value="#{userBean.customer.mail}" required="true" />
+   <p:message for="mail" />
+</p>
+ <p>
+   Votre Login :<br />
+   <h:inputText id="login" value="#{userBean.customer.login}" required="true" />
+   <p:message for="login" display="text" />
+</p>
+<p>
+   Votre mot de passe :<br />
+   <h:inputSecret name="passe" value="#{userBean.customer.password}" required="true"/>
+   <p:message for="prenom"/>
+</p>
+<p>
+   Confirmer Votre mot de passe :<br />
+   <h:inputSecret value="cpass" required="true" id="cpass"/>
+   <p:message for="cpass" severity="warn"/>
+</p>
+<h:commandButton  action="#{userBean.addUser()}" value="Submit"  />
+</h:form>
+</body> 
+</html>
