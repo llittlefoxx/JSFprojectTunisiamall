@@ -11,6 +11,7 @@ import edu.tunisiamall.entities.Product;
 import edu.tunisiamall.entities.Promotion;
 import edu.tunisiamall.entities.PromotionSuggest;
 import edu.tunisiamall.entities.Store;
+import edu.tunisiamall.util.Stat;
 
 @Remote
 public interface IndicatorsServiceRemote {
@@ -28,7 +29,7 @@ public interface IndicatorsServiceRemote {
 	
 	public double getTotalIncome();
 	
-	public Map<String, Double> getMonthlyIncome();
+	public List<Stat> getMonthlyIncome();
 
 	public List<Product> findProductByLib(String lib);
 

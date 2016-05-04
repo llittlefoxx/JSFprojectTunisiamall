@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+
+	<h:form id="form">
+		<p:dataTable var="product" value="#{pbean.getAllProds()}"
+			paginator="true" rows="10" rowsPerPageTemplate="5,10,15" lazy="true"
+			selectionMode="single" id="prodtable"
+			selection="#{pbean.selectedProduct}" rowKey="#{product.idProduct}">
+			<p:ajax event="rowSelect" listener="#{pbean.onRowSelect}"
+				update=":form:prodDetail" oncomplete="PF('ProdDialog').show()" />
+			<p:column headerText="Picture">
+				<h:graphicImage width="100" height="100"
+					value="#{pbean.getProductImage(product.idProduct).imagePath}" />
+			</p:column>
+			<p:column headerText="Libelle" sortBy="#{product.libelle}"
+				filterBy="#{product.libelle}">
+				<h:outputText value="#{product.libelle}" />
+			</p:column>
+			<p:column headerText="Quantite" sortBy="#{product.qte}">
+				<h:outputText value="#{product.qte}" />
+			</p:column>
+			<p:column headerText="Sell price" sortBy="#{product.sellPrice}">
+				<h:outputText value="#{product.sellPrice}" />
+			</p:column>
+			<p:column headerText="Buy Price" sortBy="#{product.buyPrice}">
+				<h:outputText value="#{product.buyPrice}" />
+			</p:column>
+			<p:column headerText="Status" sortBy="#{product.state}"
+				filterBy="#{product.state}">
+				<h:outputText value="#{product.state}" />
+			</p:column>
+			<p:column headerText="Category"
+				sortBy="#{product.subcategory.category.libelle}"
+				filterBy="#{product.subcategory.category.libelle}">
+				<h:outputText value="#{product.subcategory.category.libelle}" />
+			</p:column>
+			<p:column headerText="Sub category"
+				sortBy="#{product.subcategory.libelle}"
+				filterBy="#{product.subcategory.libelle}">
+				<h:outputText value="#{product.subcategory.libelle}" />
+			</p:column>
+			<p:column headerText="Critical zone" sortBy="#{product.criticalZone}"
+				filterBy="#{product.criticalZone}">
+				<h:outputText value="#{product.criticalZone}" />
+			</p:column>
+			<p:column headerText="% Promotion"
+				sortBy="#{product.promotion.value}"
+				filterBy="#{product.promotion.value}">
+				<h:outputText value="#{product.promotion.value}" />
+			</p:column>
+			<p:column headerText="Tax" sortBy="#{product.tax}"
+				filterBy="#{product.tax}">
+				<h:outputText value="#{product.tax}" />
+			</p:column>
+		</p:dataTable>
+		
+		<p:dialog header="Product Detail" widgetVar="ProdDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="prodDetail" style="text-align:center;">
+				<p:panelGrid columns="2" rendered="#{not empty pbean.selectedProduct}"
+					columnClasses="label,value">
+				 <f:facet name="header">
+                   <h:graphicImage 
+					value="#{pbean.getProductImage(pbean.selectedProduct.idProduct).imagePath}"  width="200" height="200"/> 
+                </f:facet>
+					
+
+					<h:outputText value="Libelle" />
+					<h:outputText value="#{pbean.selectedProduct.libelle}" />
+
+					<h:outputText value="Quantity" />
+					<h:outputText value="#{pbean.selectedProduct.qte}" />
+
+					<h:outputText value="Status" />
+					<h:outputText value="#{pbean.selectedProduct.state}" />
+					
+					<h:outputText value="Status" />
+					<h:outputText value="#{pbean.selectedProduct.state}" />
+					
+					<h:outputText value="Tax" />
+					<h:outputText value="#{pbean.selectedProduct.tax}" />
+					
+					<h:outputText value="Critical zone" />
+					<h:outputText value="#{pbean.selectedProduct.criticalZone}" />
+					
+					<h:outputText value="Category" />
+					<h:outputText value="#{pbean.selectedProduct.subcategory.category.libelle}" />
+					
+					<h:outputText value="Sub Category" />
+					<h:outputText value="#{pbean.selectedProduct.subcategory.libelle}" />
+					
+					<h:outputText value="Store" />
+					<h:outputText value="#{pbean.selectedProduct.store.name}" />
+
+					<h:outputText value="Buy Price" />
+					<h:outputText value="#{pbean.selectedProduct.buyPrice}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+					
+					<h:outputText value="Sell Price" />
+					<h:outputText value="#{pbean.selectedProduct.sellPrice}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+
+
+</body>
+</html>

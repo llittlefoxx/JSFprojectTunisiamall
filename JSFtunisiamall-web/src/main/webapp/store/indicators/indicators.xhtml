@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head> 
+<body> 
+<p:chart type="metergauge" model="#{chartBean.meterGaugeModel1}" style="width:400px;height:250px" />
+<br></br>
+
+
+<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+   
+    <p:chart type="bar" model="#{expo.animatedModel2}" style="width:400px;" />
+</h:panelGrid>
+
+<h:form>
+    <h3>Hot Products</h3>
+
+    <p:dataTable id="tbl" var="prod" value="#{expo.hotProducts}"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+ 
+        <f:facet name="{Exporters}">
+ 
+ 
+            <h:commandLink>
+                <p:graphicImage name="/resources/img/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="HOTproducts" />
+            </h:commandLink>
+
+        </f:facet>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Libelle" />
+            </f:facet>
+            <h:outputText value="#{prod.libelle}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Category"/>
+            </f:facet>
+            <h:outputText value="#{prod.subcategory.category.libelle}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Price" />
+            </f:facet>
+            <h:outputText value="#{prod.sellPrice}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Sold QTE" />
+            </f:facet>
+            <h:outputText value="#{prod.qte}" />
+        </p:column>
+    </p:dataTable>
+ 
+
+   
+</h:form>
+
+</body> 
+</html>
