@@ -43,15 +43,15 @@ public class AuthenticationBean {
 		} else {
 			loggedIn = true;
 
-			if (user instanceof Shopowner) {
+			if (user instanceof Customer) {
 
 				navigateTo = "/pages/admin/home";
 				userType = "admin";
 				
-			} else if (user instanceof Customer) {
+			} else if (user instanceof Shopowner) {
 				
-				navigateTo = "/pages/customer/home";
-				userType = "customer";
+				navigateTo = "/Profile";
+				userType = "Shopowner";
 			}
 		}
 		return navigateTo;
@@ -61,7 +61,13 @@ public class AuthenticationBean {
 
 		loggedIn = false;
 		user = new User();
-		return "/home";
+		return "/Authentification";
+	}
+	
+	public String desactiverUser(){
+		service.delete(user.getIdUser());
+		
+		return "/Authentification";
 	}
 	public User getUser() {
 		return user;
