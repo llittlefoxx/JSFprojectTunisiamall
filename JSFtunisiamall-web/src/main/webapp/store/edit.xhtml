@@ -3,27 +3,42 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
-<ui:composition template="/templates/BasicTemplate.xhtml">
-	<ui:define name="header"></ui:define>
+<ui:composition template="/templates/layout.xhtml">
 	<ui:define name="title">Edit Store</ui:define>
 	<ui:define name="content">
-		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Name" />
-				<h:inputText value="#{storeBean.store.name}"/>
-				<h:outputLabel value="Description" />
-				<h:inputTextarea value="#{storeBean.store.description}" />
-				<h:outputLabel value="Tel" />
-				<h:inputText value="#{storeBean.store.tel}" />
-				<h:outputText value="#{storeBean.store.category.libelle}" />
-				<f:facet name="footer">
-					<h:panelGroup style="display:block; text-align:center">
-						<h:commandButton action="#{storeBean.updateStore()}" value="Submit" />
-					</h:panelGroup>
-				</f:facet>
-			</h:panelGrid>
-		</h:form>
+		<div class="page-head">
+			<h3 class="m-b-less">Update Store</h3>
+		</div>
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel"> <header class="panel-heading">
+					Store Details </header>
+					<div class="panel-body">
+						<h:form>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Name</label>
+								<h:inputText value="#{storeBean.store.name}"
+									styleClass="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Description</label>
+								<h:inputTextarea value="#{storeBean.store.description}"
+									styleClass="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Phone number</label>
+								<h:inputText value="#{storeBean.store.tel}"
+									styleClass="form-control" />
+							</div>
+							<h:commandButton action="#{storeBean.updateStore()}"
+								value="Submit" styleClass="btn btn-info" />
+						</h:form>
+					</div>
+					</section>
+				</div>
+			</div>
+		</div>
 	</ui:define>
-	<ui:define name="scripts"></ui:define>
 </ui:composition>
 </html>

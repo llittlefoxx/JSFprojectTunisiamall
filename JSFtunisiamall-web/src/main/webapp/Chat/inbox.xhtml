@@ -95,15 +95,23 @@
 							<h4 class="modal-title" id="myModalLabel">Send New Message</h4>
 						</div>
 						<div class="modal-body">
-							<h:inputText value="#{chatBean.message.text}" />
-							<h:selectOneMenu value="#{chatBean.message.receiver.idUser}">
-								<f:selectItems value="#{chatBean.UsersList()}" var="item"
-									itemLabel="#{item.login}" itemValue="#{item.idUser}" />
-							</h:selectOneMenu>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Select a user</label>
+								<h:selectOneMenu value="#{chatBean.message.receiver.idUser}"
+									styleClass="form-control">
+									<f:selectItems value="#{chatBean.UsersList()}" var="item"
+										itemLabel="#{item.login}" itemValue="#{item.idUser}" />
+								</h:selectOneMenu>
+							</div>
+							<div class="form-group">
+								<h:inputText value="#{chatBean.message.text}"
+									styleClass="form-control" a:placeholder="Your message..." />
+							</div>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton action="#{chatBean.doSend(chatBean.message.receiver.idUser)}" value="Send"
-								styleClass="btn btn-info" />
+							<h:commandButton
+								action="#{chatBean.doSend(chatBean.message.receiver.idUser)}"
+								value="Send" styleClass="btn btn-info" />
 						</div>
 					</h:form>
 				</div>

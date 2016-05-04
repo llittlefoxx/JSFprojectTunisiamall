@@ -4,25 +4,62 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/templates/BasicTemplate.xhtml">
-	<ui:define name="header"></ui:define>
+<ui:composition template="/templates/layout.xhtml">
 	<ui:define name="title">Stores List</ui:define>
 	<ui:define name="content">
-		<h:outputText value="#{storeBean.count}" styleClass="bg-info" />
-		<h:form>
-			<ui:repeat value="#{storeBean.storesList}" var="item">
-				<h:outputLabel value="#{item.name}" styleClass="bg-info" />
-				<h:outputText value="#{item.status}" styleClass="bg-info"/>
-				<h:commandButton action="#{storeBean.editStore(item.idStore)}" value="Edit" />
-				<h:commandLink action="#{storeBean.close(item.idStore)}"
-					onclick="return confirm('Do you really want to close this store ?')"
-					value="close" rendered="#{item.status eq 'Open'}" />
-				<h:commandLink action="#{storeBean.reopen(item.idStore)}"
-					value="open" rendered="#{item.status eq 'Closed'}" />
-				<br />
-			</ui:repeat>
-		</h:form>
+		<div class="page-head">
+			<h3 class="m-b-less">Stores</h3>
+		</div>
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel"> <header
+						class="panel-heading head-border"> List </header> <h:form>
+						<table class="table table-striped custom-table table-hover">
+							<thead>
+								<tr>
+									<th><i class="fa fa-bookmark-o"></i> Name</th>
+									<th><i class="fa fa-info-circle"></i> Description</th>
+									<th><i class="fa fa-calendar-o"></i> Opening day</th>
+									<th><i class="fa fa-phone"></i> Phone number</th>
+									<th><i class="fa fa-check-circle"></i> Status</th>
+									<th><i class="fa fa-cogs"></i> Action</th>
+								</tr>
+								<ui:repeat value="#{storeBean.storesList}" var="item">
+									<tr>
+										<td>#{item.name}</td>
+										<td>#{item.description}</td>
+										<td>#{item.openingDay}</td>
+										<td>#{item.tel}</td>
+										<td><h:panelGroup rendered="#{item.status == 'Open'}">
+												<span class="label label-success label-mini">Open</span>
+											</h:panelGroup> <h:panelGroup rendered="#{item.status == 'Closed'}">
+												<span class="label label-danger label-mini">Closed</span>
+											</h:panelGroup></td>
+										<td><h:commandLink
+												action="#{storeBean.editStore(item.idStore)}"
+												styleClass="btn btn-primary btn-xs">
+												<i class="fa fa-pencil"></i>
+											</h:commandLink> &nbsp; <h:commandLink
+												action="#{storeBean.goToEditLayout(item.idStore)}"
+												styleClass="btn btn-primary btn-xs">
+												<i class="fa fa-cog"></i>
+											</h:commandLink> &nbsp; <h:commandLink
+												action="#{storeBean.close(item.idStore)}"
+												onclick="return confirm('Do you really want to close this store ?')"
+												value="Close" rendered="#{item.status == 'Open'}"
+												styleClass="btn btn-danger btn-xs" /> <h:commandLink
+												action="#{storeBean.reopen(item.idStore)}" value="Open"
+												rendered="#{item.status == 'Closed'}"
+												styleClass="btn btn-success btn-xs" /></td>
+									</tr>
+								</ui:repeat>
+							</thead>
+						</table>
+					</h:form> </section>
+				</div>
+			</div>
+		</div>
 	</ui:define>
-	<ui:define name="scripts"></ui:define>
 </ui:composition>
 </html>
