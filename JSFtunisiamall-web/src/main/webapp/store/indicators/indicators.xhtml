@@ -11,26 +11,20 @@
 <br></br>
 
 <h:form>
+    <h3>Hot Products</h3>
+
     <p:dataTable id="tbl" var="prod" value="#{expo.hotProducts}"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                  paginator="true" rows="10" style="margin-bottom:20px">
  
         <f:facet name="{Exporters}">
  
-            <h:commandLink>
-                <p:graphicImage value="/resources/img/pdf.png" width="24"/>
-                <p:dataExporter type="pdf" target="tbl" fileName="HOTproducts"/>
-            </h:commandLink>
  
             <h:commandLink>
                 <p:graphicImage name="/resources/img/csv.png" width="24"/>
                 <p:dataExporter type="csv" target="tbl" fileName="HOTproducts" />
             </h:commandLink>
- 
-            <h:commandLink>
-                <p:graphicImage name="/resources/img/xml.png" width="24"/>
-                <p:dataExporter type="xml" target="tbl" fileName="HOTproducts" />
-            </h:commandLink>
+
         </f:facet>
  
         <p:column>
@@ -62,22 +56,8 @@
         </p:column>
     </p:dataTable>
  
-    <h3>Export Page Data Only</h3>
 
-    <h:commandLink>
-        <p:graphicImage name="/resources/img/pdf.png" />
-        <p:dataExporter type="pdf" target="tbl" fileName="HOTproducts" pageOnly="true" />
-    </h:commandLink>
- 
-    <h:commandLink>
-        <p:graphicImage name="/resources/img/csv.png" />
-        <p:dataExporter type="csv" target="tbl" fileName="HOTproducts" pageOnly="true" />
-    </h:commandLink>
- 
-    <h:commandLink>
-        <p:graphicImage name="/resources/img/xml.png" />
-        <p:dataExporter type="xml" target="tbl" fileName="HOTproducts" pageOnly="true" />
-    </h:commandLink>
+   
 </h:form>
 
 </body> 
