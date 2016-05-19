@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.tunisiamall.entities.Gestbookentry;
+import edu.tunisiamall.entities.Guestbookentry;
 import edu.tunisiamall.entities.User;
 import edu.tunisiamall.userServices.userServicesLocal;
 
@@ -26,18 +26,18 @@ public class GuestBookEntryServices implements GuestBookEntryServicesRemote, Gue
 
 	@Override
 	public void deleteEntries(int id) {
-		em.remove(em.find(Gestbookentry.class, id));
+		em.remove(em.find(Guestbookentry.class, id));
 	}
 
 	@Override
-	public List<Gestbookentry> findAll() {
+	public List<Guestbookentry> findAll() {
 		Query query = em.createNamedQuery("Gestbookentry.findAll");
 		return query.getResultList();
 	}
 
 	@Override
-	public Gestbookentry findEntryById(int idEtries) {
-		return em.find(Gestbookentry.class, idEtries);
+	public Guestbookentry findEntryById(int idEtries) {
+		return em.find(Guestbookentry.class, idEtries);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class GuestBookEntryServices implements GuestBookEntryServicesRemote, Gue
 					.setParameter("user",u);
 			Long result = (Long) q.getSingleResult();
 			if (result == 0) {
-				Gestbookentry g = new Gestbookentry();
+				Guestbookentry g = new Guestbookentry();
 				g.setDateEntrie(new Date());
 				g.setRating(-1);
 				g.setText(text);

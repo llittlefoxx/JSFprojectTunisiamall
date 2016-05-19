@@ -5,8 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@NamedQuery(name = "Gestbookentry.findAll", query = "SELECT g FROM Gestbookentry g")
-public class Gestbookentry implements Serializable {
+@NamedQuery(name = "Guestbookentry.findAll", query = "SELECT g FROM Guestbookentry g")
+public class Guestbookentry implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,7 +23,7 @@ public class Gestbookentry implements Serializable {
 	@OneToOne
 	private User user;
 
-	public Gestbookentry() {
+	public Guestbookentry() {
 	}
 
 	public int getIdEntries() {

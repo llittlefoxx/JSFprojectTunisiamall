@@ -5,9 +5,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
-<body>
-
+<ui:composition template="/templates/layout.xhtml">
+	<ui:define name="title">Inbox</ui:define>
+	<ui:define name="content">
 
 	<h:form id="form">
 		<p:dataTable var="product" value="#{pbean.getAllProds()}"
@@ -114,6 +114,6 @@
 		</p:dialog>
 	</h:form>
 
-
-</body>
+	</ui:define>
+</ui:composition>
 </html>
