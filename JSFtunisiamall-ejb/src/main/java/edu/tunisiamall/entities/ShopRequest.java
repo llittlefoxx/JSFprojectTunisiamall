@@ -14,16 +14,12 @@ public class ShopRequest implements Serializable {
 
 	private Integer idRequest;
 	private String description;
-
 	private Date rcptDate;
 	private boolean status;
-
 	private Date plannedOpeningDate;
 	private Integer rentPeriod;
 	private boolean storeInMall;
-
 	private Category category;
-
 	private String firstName;
 	private String lastName;
 	private Date birthdate;

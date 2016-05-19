@@ -21,6 +21,7 @@ public class Guestbookentry implements Serializable {
 	private String text;
 
 	@OneToOne
+	@JoinColumn(name = "idUser")
 	private User user;
 
 	public Guestbookentry() {

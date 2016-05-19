@@ -4,29 +4,26 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
-@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c")
+@NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
 public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idComment;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date commentDate;
 
-	private int rating;
-
 	private String text;
 
 	@ManyToOne
-	@JoinColumn(name="idUser")
+	@JoinColumn(name = "idUser")
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name="idPost")
+	@JoinColumn(name = "idPost")
 	private Post post;
 
 	public Comment() {
@@ -46,14 +43,6 @@ public class Comment implements Serializable {
 
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
-	}
-
-	public int getRating() {
-		return this.rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
 	}
 
 	public String getText() {

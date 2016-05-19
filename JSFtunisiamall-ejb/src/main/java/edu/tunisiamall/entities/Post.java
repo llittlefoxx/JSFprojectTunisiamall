@@ -2,28 +2,38 @@ package edu.tunisiamall.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
-
 @Entity
-@NamedQuery(name="Post.findAll", query="SELECT p FROM Post p")
+@NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPost;
 
 	private String description;
 
+	private String title;
+
 	private int rating;
 
-	@OneToMany(mappedBy="post")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date postDate;
+
+	@OneToMany(mappedBy = "post")
 	private List<Comment> comments;
 
 	@ManyToOne
-	@JoinColumn(name="idUser")
+	@JoinColumn(name = "idUser")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "idTopic")
+	private Topic topic;
 
 	public Post() {
 	}
@@ -82,6 +92,30 @@ public class Post implements Serializable {
 		this.user = user;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+
 	@Override
 	public int hashCode() {
 		return idPost;
@@ -101,5 +135,4 @@ public class Post implements Serializable {
 		return true;
 	}
 
-	
 }

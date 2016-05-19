@@ -3,7 +3,6 @@ package edu.tunisiamall.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s")
@@ -19,6 +18,7 @@ public class Store implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category_fk")
 	private Category category;
+	
 	private String name;
 
 	@Temporal(TemporalType.TIMESTAMP)

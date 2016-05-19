@@ -3,7 +3,6 @@ package edu.tunisiamall.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
@@ -34,6 +33,7 @@ public class Product implements Serializable {
 	private double tax;
 
 	@ManyToOne
+	@JoinColumn(name = "idPromotion")
 	private Promotion Promotion;
 
 	@ManyToOne
@@ -68,8 +68,7 @@ public class Product implements Serializable {
 	}
 
 	public Product(double buyPrice, Date expDate, String libelle, int qte, int criticalZone, double sellPrice,
-			String state, String tag, double tax,
-			 Store store, Subcategory subcategory) {
+			String state, String tag, double tax, Store store, Subcategory subcategory) {
 		super();
 		this.buyPrice = buyPrice;
 		this.expDate = expDate;
@@ -87,8 +86,6 @@ public class Product implements Serializable {
 	public Product() {
 	}
 
-	
-	
 	public Product(int idProduct, String libelle, int qte, Store store) {
 		super();
 		this.idProduct = idProduct;
@@ -96,8 +93,6 @@ public class Product implements Serializable {
 		this.qte = qte;
 		this.store = store;
 	}
-
-
 
 	public int getIdProduct() {
 		return this.idProduct;
@@ -203,13 +198,9 @@ public class Product implements Serializable {
 		this.promotionSuggest = promotionSuggest;
 	}
 
-
-
 	public Store getStore() {
 		return store;
 	}
-
-
 
 	public void setStore(Store store) {
 		this.store = store;

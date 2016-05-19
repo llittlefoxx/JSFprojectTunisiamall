@@ -3,7 +3,6 @@ package edu.tunisiamall.entities;
 import java.io.Serializable;
 import java.lang.Long;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 
 @Entity

@@ -2,7 +2,6 @@ package edu.tunisiamall.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -28,6 +27,7 @@ public class PromotionSuggest implements Serializable {
 	private Date suggestionDate;
 
 	private String desccription;
+
 	private double value;
 
 	public PromotionSuggest() {

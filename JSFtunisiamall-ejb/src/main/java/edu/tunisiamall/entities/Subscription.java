@@ -4,31 +4,32 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name="subscriptions")
-@NamedQuery(name="Subscription.findAll", query="SELECT s FROM Subscription s")
+@Table(name = "subscriptions")
+@NamedQuery(name = "Subscription.findAll", query = "SELECT s FROM Subscription s")
 public class Subscription implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private SubscriptionPK id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idSubscription;
 
 	@ManyToOne
-	@JoinColumn(name="idUser", insertable = false, updatable = false)
+	@JoinColumn(name = "idUser", insertable = false, updatable = false)
 	private Customer customer;
 
 	@ManyToOne
-	@JoinColumn(name="idEvent", insertable = false, updatable = false)
+	@JoinColumn(name = "idEvent", insertable = false, updatable = false)
 	private Event event;
 
 	public Subscription() {
 	}
 
-	public SubscriptionPK getId() {
-		return this.id;
+	public int getIdSubscription() {
+		return idSubscription;
 	}
 
-	public void setId(SubscriptionPK id) {
-		this.id = id;
+	public void setIdSubscription(int idSubscription) {
+		this.idSubscription = idSubscription;
 	}
 
 	public Customer getCustomer() {

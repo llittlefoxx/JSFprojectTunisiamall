@@ -18,11 +18,11 @@ public class Message implements Serializable {
 	private String text;
 
 	@ManyToOne
-	@JoinColumn(name = "idUserSender_FK")
+	@JoinColumn(name = "idSender")
 	private User sender;
 
 	@ManyToOne
-	@JoinColumn(name = "idUserReciver_fk")
+	@JoinColumn(name = "idReceiver")
 	private User receiver;
 
 	public Message() {

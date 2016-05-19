@@ -2,7 +2,6 @@ package edu.tunisiamall.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("Customer")
@@ -13,6 +12,8 @@ public class Customer extends User implements Serializable {
 	private String facturationAddr;
 
 	private String shipementAddr;
+
+	private int points;
 
 	public Customer() {
 	}
@@ -31,6 +32,14 @@ public class Customer extends User implements Serializable {
 
 	public void setShipementAddr(String shipementAddr) {
 		this.shipementAddr = shipementAddr;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 	public static long getSerialversionuid() {

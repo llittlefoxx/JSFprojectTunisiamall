@@ -29,7 +29,7 @@
 		<class>edu.tunisiamall.entities.StoreeventPK</class>
 		<class>edu.tunisiamall.entities.Subcategory</class>
 		<class>edu.tunisiamall.entities.Subscription</class>
-		<class>edu.tunisiamall.entities.SubscriptionPK</class>
+		<class>edu.tunisiamall.entities.Topic</class>
 		<class>edu.tunisiamall.entities.User</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />

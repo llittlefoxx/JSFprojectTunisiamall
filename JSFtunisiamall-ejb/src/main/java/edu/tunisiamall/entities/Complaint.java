@@ -4,18 +4,13 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
-/**
- * The persistent class for the complaint database table.
- * 
- */
 @Entity
-@NamedQuery(name="Complaint.findAll", query="SELECT c FROM Complaint c")
+@NamedQuery(name = "Complaint.findAll", query = "SELECT c FROM Complaint c")
 public class Complaint implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idComplaint;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -25,9 +20,8 @@ public class Complaint implements Serializable {
 
 	private String text;
 
-	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUser")
+	@JoinColumn(name = "idUser")
 	private User user;
 
 	public Complaint() {
